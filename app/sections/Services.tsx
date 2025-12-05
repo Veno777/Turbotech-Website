@@ -15,35 +15,35 @@ const services: Service[] = [
     title: 'Condo Cleaning',
     description: 'Regular maintenance cleaning for your condo. Includes dusting, vacuuming, surfaces, and light kitchen + bathroom cleaning.',
     price: 'Starting from: $89',
-    image: getImage('fotoaibe'),
+    image: getImage('janetrangdoan'), // Human face image
   },
   {
     icon: '🏠',
     title: 'Airbnb Cleaning',
     description: 'Fast turnover cleaning to get your rental ready for the next guest. Professional, thorough, and guest-ready every time.',
     price: 'Starting from: $95',
-    image: getImage('janetrangdoan'),
+    image: getImage('karolaG1'), // Human face image
   },
   {
     icon: '🚚',
     title: 'Move-Out Cleaning',
     description: 'Complete empty-unit deep clean. Includes appliances, bathrooms, cupboards, inside all storage areas for a fresh start.',
     price: 'Starting from: $149',
-    image: getImage('pavelDanilyuk'),
+    image: getImage('lilianaDrew1'), // Human face image
   },
   {
     icon: '✨',
     title: 'Deep / Heavy‑Duty Clean',
     description: 'Inside oven/fridge, cupboard interiors, grout scrub, vents & baseboards. Perfect for seasonal deep cleans.',
     price: 'Add‑on: from $49',
-    image: getImage('jvdm'),
+    image: getImage('karolaG2'), // Human face image
   },
   {
     icon: '⚡',
     title: 'Express Touch‑Up',
     description: 'Fast 60‑minute clean focused on high traffic areas — perfect between regular cleans or last-minute touch-ups.',
     price: 'Starting from: $45',
-    image: getImage('lilianaDrew1'),
+    image: getImage('lilianaDrew2'), // Human face image
   },
 ]
 

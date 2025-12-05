@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import Button from './Button'
+import Image from 'next/image'
+import { getImage } from '../utils/turbophotos'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -35,13 +36,20 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#home" className="text-2xl font-heading font-bold text-primary-blue">
-              TurboTech Cleaners
+            <a href="#home" className="flex items-center space-x-3">
+              <Image
+                src={getImage('logo')}
+                alt="TurboTech Cleaners Logo"
+                width={120}
+                height={40}
+                className="object-contain"
+                priority
+              />
             </a>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -51,7 +59,23 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
-            <Button variant="primary">Book Now</Button>
+            {/* Phone Number */}
+            <a
+              href="tel:6477849120"
+              className="text-primary-blue hover:text-primary-turquoise font-semibold transition-colors"
+            >
+              647-784-9120
+            </a>
+            {/* Book Now Button */}
+            <a
+              href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              className="bg-primary-turquoise hover:bg-[#08a8e6] text-white font-semibold py-2 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-sm"
+              style={{ letterSpacing: '0.5px' }}
+            >
+              Book Now
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -80,7 +104,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-4">
+          <div className="md:hidden py-4 space-y-4 border-t border-gray-200">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -91,8 +115,26 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
-            <div className="pt-4">
-              <Button variant="primary" className="w-full">Book Now</Button>
+            {/* Mobile Phone Number */}
+            <a
+              href="tel:6477849120"
+              className="block text-primary-blue hover:text-primary-turquoise font-semibold transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Call: 647-784-9120
+            </a>
+            {/* Mobile Book Now Button */}
+            <div className="pt-2">
+              <a
+                href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                className="block w-full bg-primary-turquoise hover:bg-[#08a8e6] text-white font-semibold py-3 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-center text-sm"
+                style={{ letterSpacing: '0.5px' }}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Book Now
+              </a>
             </div>
           </div>
         )}
@@ -100,4 +142,3 @@ export default function Navbar() {
     </nav>
   )
 }
-
