@@ -1,32 +1,49 @@
 import React from 'react'
-import Button from '../components/Button'
+import { getImage } from '../utils/turbophotos'
 
 interface Service {
   icon: string
   title: string
   description: string
+  price?: string
+  image?: string
 }
 
 const services: Service[] = [
   {
-    icon: '🧹',
-    title: 'Basic Clean',
-    description: 'Includes dusting, vacuuming, surfaces, wipe-down, light kitchen + bathroom cleaning for regular maintenance.',
+    icon: '🏢',
+    title: 'Condo Cleaning',
+    description: 'Regular maintenance cleaning for your condo. Includes dusting, vacuuming, surfaces, and light kitchen + bathroom cleaning.',
+    price: 'Starting from: $89',
+    image: getImage('fotoaibe'),
   },
   {
-    icon: '✨',
-    title: 'Deep Clean',
-    description: 'Baseboards, appliances, grout scrubbing, bathrooms, walls, and detailed cleaning for a thorough refresh.',
+    icon: '🏠',
+    title: 'Airbnb Cleaning',
+    description: 'Fast turnover cleaning to get your rental ready for the next guest. Professional, thorough, and guest-ready every time.',
+    price: 'Starting from: $95',
+    image: getImage('janetrangdoan'),
   },
   {
     icon: '🚚',
-    title: 'Move-In/Move-Out',
-    description: 'Full empty-unit clean, appliances, bathrooms, cupboards, inside all storage areas for a fresh start.',
+    title: 'Move-Out Cleaning',
+    description: 'Complete empty-unit deep clean. Includes appliances, bathrooms, cupboards, inside all storage areas for a fresh start.',
+    price: 'Starting from: $149',
+    image: getImage('pavelDanilyuk'),
   },
   {
-    icon: '➕',
-    title: 'Add-ons',
-    description: 'Inside fridge, inside oven, balcony, laundry, pet hair removal - customize your cleaning experience.',
+    icon: '✨',
+    title: 'Deep / Heavy‑Duty Clean',
+    description: 'Inside oven/fridge, cupboard interiors, grout scrub, vents & baseboards. Perfect for seasonal deep cleans.',
+    price: 'Add‑on: from $49',
+    image: getImage('jvdm'),
+  },
+  {
+    icon: '⚡',
+    title: 'Express Touch‑Up',
+    description: 'Fast 60‑minute clean focused on high traffic areas — perfect between regular cleans or last-minute touch-ups.',
+    price: 'Starting from: $45',
+    image: getImage('lilianaDrew1'),
   },
 ]
 
@@ -39,27 +56,41 @@ export default function Services() {
             Our Services
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Comprehensive cleaning solutions tailored to your needs
+            Comprehensive cleaning solutions tailored to your needs across the GTA
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 group"
             >
-              <div className="text-5xl mb-4 text-center">{service.icon}</div>
-              <h3 className="text-2xl font-heading font-semibold text-primary-blue mb-4 text-center">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 mb-6 text-center leading-relaxed">
-                {service.description}
-              </p>
-              <div className="text-center">
-                <Button variant="outline" className="w-full">
-                  Learn More
-                </Button>
+              {/* Service Image */}
+              {service.image && (
+                <div
+                  className="h-48 bg-cover bg-center relative overflow-hidden"
+                  style={{
+                    backgroundImage: `url('${service.image}')`,
+                  }}
+                >
+                  <div className="absolute inset-0 bg-primary-blue/20 group-hover:bg-primary-blue/10 transition-colors duration-300"></div>
+                  <div className="absolute top-4 left-4 text-5xl">{service.icon}</div>
+                </div>
+              )}
+              
+              <div className="p-6">
+                <h3 className="text-2xl font-heading font-semibold text-primary-blue mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 mb-4 leading-relaxed">
+                  {service.description}
+                </p>
+                {service.price && (
+                  <p className="text-lg font-semibold text-primary-blue mt-4">
+                    {service.price}
+                  </p>
+                )}
               </div>
             </div>
           ))}
@@ -68,4 +99,3 @@ export default function Services() {
     </section>
   )
 }
-

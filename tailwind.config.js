@@ -11,6 +11,7 @@ module.exports = {
         primary: {
           silver: '#C0C0C0',
           blue: '#1E3A8A',
+          turquoise: '#09BCFF', // Brand color for booking buttons
         },
         secondary: {
           white: '#FFFFFF',

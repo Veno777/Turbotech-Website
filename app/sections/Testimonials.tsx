@@ -1,26 +1,31 @@
 import React from 'react'
+import { getImage, getRandomImage } from '../utils/turbophotos'
 
 interface Testimonial {
   name: string
+  location: string
   quote: string
-  image: string
+  image?: string
 }
 
 const testimonials: Testimonial[] = [
   {
-    name: 'Sarah M.',
-    quote: 'Fantastic condo clean! My unit looks brand new.',
-    image: '/images/testimonial1.jpg',
+    name: 'Sarah',
+    location: 'Toronto',
+    quote: 'Fantastic job — on time and thorough.',
+    image: getImage('lilianaDrew2'),
   },
   {
-    name: 'Daniel P.',
-    quote: 'Reliable and professional — best cleaners I\'ve hired.',
-    image: '/images/testimonial2.jpg',
+    name: 'Mark',
+    location: 'Downtown',
+    quote: 'Airbnb clean was flawless; guests commented on how fresh the place was.',
+    image: getImage('karolaG1'),
   },
   {
-    name: 'Aisha K.',
-    quote: 'Deep clean exceeded expectations.',
-    image: '/images/testimonial3.jpg',
+    name: 'Aisha',
+    location: 'Brampton',
+    quote: 'Quick to respond and professional team.',
+    image: getImage('karolaG2'),
   },
 ]
 
@@ -30,7 +35,7 @@ export default function Testimonials() {
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary-blue mb-4">
-            What Our Clients Say
+            What Our Customers Say
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Trusted by homeowners across the GTA
@@ -45,9 +50,9 @@ export default function Testimonials() {
             >
               <div className="flex items-center mb-6">
                 <div
-                  className="w-16 h-16 rounded-full bg-cover bg-center mr-4"
+                  className="w-16 h-16 rounded-full bg-cover bg-center mr-4 flex-shrink-0"
                   style={{
-                    backgroundImage: `url('${testimonial.image}')`,
+                    backgroundImage: `url('${testimonial.image || getRandomImage()}')`,
                   }}
                 >
                   <div className="w-full h-full rounded-full bg-primary-blue/20"></div>
@@ -56,11 +61,12 @@ export default function Testimonials() {
                   <h4 className="text-lg font-heading font-semibold text-gray-900">
                     {testimonial.name}
                   </h4>
-                  <div className="flex text-yellow-400">
+                  <p className="text-sm text-gray-500">{testimonial.location}</p>
+                  <div className="flex text-yellow-400 mt-1">
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
-                        className="w-5 h-5"
+                        className="w-4 h-4"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -71,7 +77,7 @@ export default function Testimonials() {
                 </div>
               </div>
               <p className="text-gray-600 italic leading-relaxed">
-                "{testimonial.quote}"
+                &quot;{testimonial.quote}&quot;
               </p>
             </div>
           ))}
@@ -80,4 +86,3 @@ export default function Testimonials() {
     </section>
   )
 }
-
