@@ -9,6 +9,7 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [useImageFallback, setUseImageFallback] = useState(false)
   const [currentCarouselImage, setCurrentCarouselImage] = useState(0)
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
 
   // Carousel images
   const carouselImages = [
@@ -278,18 +279,52 @@ export default function Home() {
       <section id="faq" className="py-20 px-6 max-w-3xl mx-auto bg-[#F0FAFF]">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Frequently Asked Questions</h2>
 
-        <div className="mt-10 space-y-6">
+        <div className="mt-10 space-y-5 max-w-3xl mx-auto">
           {[
-            ['How do bookings work?', 'Book online or text/call us directly. We confirm every appointment manually.'],
-            ['Do you bring your own supplies?', 'Yes — we bring all tools, vacuums, solutions, and equipment.'],
-            ['Is there a cancellation fee?', 'Cancellations within 24 hours may include a small fee.'],
-            ['Can I request same-day cleaning?', 'Yes — subject to availability. Text for fastest response.'],
-            ['Is TurboTech insured?', 'Yes — fully insured & background checked.'],
-            ['Do you clean condos of all sizes?', 'Yes — studios to penthouses.'],
-          ].map(([q, a], i) => (
-            <div key={i} className="bg-white p-4 rounded-lg border border-gray-200">
-              <p className="font-semibold text-lg mb-2">{q}</p>
-              <p className="text-sm text-gray-600">{a}</p>
+            {
+              question: 'How do bookings work?',
+              answer: 'Book online, text, or call us directly. Each appointment is confirmed manually to ensure accuracy.',
+            },
+            {
+              question: 'Do you bring your own supplies?',
+              answer: 'Yes! Our team comes fully equipped with professional-grade tools, vacuums, cleaning solutions, and all necessary equipment.',
+            },
+            {
+              question: 'Is there a cancellation fee?',
+              answer: 'Cancellations within 24 hours of the scheduled appointment may incur a small fee. We appreciate your understanding.',
+            },
+            {
+              question: 'Can I request same-day cleaning?',
+              answer: 'Yes! Same-day appointments are subject to availability. Text for the fastest response.',
+            },
+            {
+              question: 'Do you clean condos of all sizes?',
+              answer: 'Yes, from small studios to luxury penthouses. We tailor our cleaning to your space.',
+            },
+          ].map((faq, i) => (
+            <div key={i} className="bg-white rounded-lg overflow-hidden">
+              <button
+                onClick={() => setOpenFaqIndex(openFaqIndex === i ? null : i)}
+                className="w-full text-left flex justify-between items-center py-3 px-0 font-bold text-lg text-[#333] bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
+              >
+                <span>{faq.question}</span>
+                <span
+                  className={`transition-transform duration-300 ease-in-out text-[#333] ${
+                    openFaqIndex === i ? 'rotate-180' : ''
+                  }`}
+                >
+                  ▼
+                </span>
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  openFaqIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="pb-3 text-[#555] leading-relaxed font-normal">
+                  {faq.answer}
+                </div>
+              </div>
             </div>
           ))}
         </div>
