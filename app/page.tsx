@@ -113,6 +113,13 @@ export default function Home() {
               Text Us
             </a>
           </div>
+
+          {/* Open Late Note */}
+          <div 
+            className="text-white bg-[#09BCFF] px-4 py-2 mt-2.5 rounded-md font-semibold text-center text-sm mx-auto max-w-fit"
+          >
+            Open Late — Available Until 10 PM!
+          </div>
         </div>
       </section>
 
