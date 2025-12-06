@@ -115,9 +115,7 @@ export default function Home() {
           </div>
 
           {/* Open Late Note */}
-          <div 
-            className="text-white bg-black px-4 py-2 mt-5 rounded-md font-semibold text-center text-sm mx-auto max-w-fit transition-all duration-300 ease-in-out hover:shadow-[0_0_10px_2px_rgba(255,255,255,0.7)] hover:-translate-y-0.5 cursor-default"
-          >
+          <div className="open-late">
             Open Late — Available Until 10 PM!
           </div>
         </div>

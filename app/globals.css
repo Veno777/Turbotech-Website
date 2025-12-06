@@ -24,3 +24,47 @@
   }
 }
 
+/* Open Late Note with Turquoise Fade Glow */
+.open-late {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #000000;
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: fit-content;
+  
+  /* Turquoise Fade Glow */
+  text-shadow: 
+    0 0 5px #09BCFF, 
+    0 0 10px #09BCFF, 
+    0 0 15px #00FFFF, 
+    0 0 20px #00FFFF, 
+    0 0 25px #09BCFF;
+  
+  animation: glowFade 2s infinite alternate;
+}
+
+@keyframes glowFade {
+  from {
+    text-shadow: 
+      0 0 5px #09BCFF, 
+      0 0 10px #09BCFF, 
+      0 0 15px #00FFFF, 
+      0 0 20px #00FFFF, 
+      0 0 25px #09BCFF;
+  }
+  to {
+    text-shadow: 
+      0 0 10px #09BCFF, 
+      0 0 15px #09BCFF, 
+      0 0 20px #00FFFF, 
+      0 0 25px #00FFFF, 
+      0 0 30px #09BCFF;
+  }
+}
+
