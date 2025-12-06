@@ -1,13 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import { getImage, getVideo } from './utils/turbophotos'
 
 export default function Home() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [useImageFallback, setUseImageFallback] = useState(false)
   const [currentCarouselImage, setCurrentCarouselImage] = useState(0)
 
   // Carousel images
@@ -19,73 +17,44 @@ export default function Home() {
     getImage('kitchen3'),
   ]
 
-  // Auto-rotate carousel
+  // Auto-rotate carousel - 3.5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCarouselImage((prev) => (prev + 1) % carouselImages.length)
-    }, 4000) // 4 seconds
+    }, 3500) // 3.5 seconds
     return () => clearInterval(interval)
   }, [carouselImages.length])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) {
-      setUseImageFallback(true)
-      return
-    }
-
-    video.addEventListener('error', () => {
-      setUseImageFallback(true)
-    })
-
-    const tryPlay = async () => {
-      try {
-        video.muted = true
-        await video.play()
-      } catch (e) {
-        setUseImageFallback(true)
-      }
-    }
-    tryPlay()
-
-    // Accessibility: respect prefers-reduced-motion
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (mediaQuery && mediaQuery.matches) {
-      video.pause()
-      setUseImageFallback(true)
-    }
-  }, [])
 
   return (
     <main className="bg-white text-[#0A2A43]">
       <Navbar />
 
       {/* HERO - Video Background with Watermark */}
-      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
-        <div className="absolute inset-0 w-full h-full">
-          {!useImageFallback ? (
-            <video
-              ref={videoRef}
-              className="w-full h-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={getImage('cleanliving')}
-            >
-              <source src={getVideo('spinClip')} type="video/quicktime" />
-              Your browser does not support the video tag.
-            </video>
-          ) : (
-            <Image
-              src={getImage('cleanliving')}
-              alt="TurboTech Cleaners"
-              fill
-              className="object-cover"
-              priority
-            />
-          )}
+      <section className="relative w-full h-[90vh] flex items-center justify-center overflow-hidden">
+        {/* Desktop Video Background - Only load on desktop */}
+        <div className="hidden md:block absolute inset-0 w-full h-full">
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        {/* Mobile Hero - Image only */}
+        <div className="block md:hidden absolute inset-0 w-full h-full">
+          <Image
+            src={getImage('cleanliving')}
+            alt="TurboTech Cleaners"
+            fill
+            className="object-cover"
+            priority
+          />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
@@ -119,7 +88,7 @@ export default function Home() {
             </a>
             <a
               href="tel:6477849120"
-              className="px-6 py-3 rounded-lg bg-[#3FCF8E] text-white font-semibold hover:bg-[#38b87d] transition-colors shadow-lg"
+              className="px-6 py-3 rounded-lg bg-[#32D296] text-white font-semibold hover:bg-[#2bb882] transition-colors shadow-lg"
             >
               Text Us
             </a>
@@ -127,39 +96,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* WHY SECTION - With Carousel */}
-      <section className="bg-white py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Why Choose TurboTech Cleaning?
+      {/* WHY SECTION - Option 4: 4-Card Grid */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-12">
+            Why Choose <span className="text-[#32D296]">TurboTech Cleaning?</span>
           </h2>
-          
-          {/* Carousel */}
-          <div className="relative h-64 md:h-96 mb-12 rounded-lg overflow-hidden">
-            {carouselImages.map((img, i) => (
-              <div
-                key={i}
-                className={`absolute inset-0 transition-opacity duration-1000 ${
-                  i === currentCarouselImage ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <Image
-                  src={img}
-                  alt={`TurboTech Cleaning ${i + 1}`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
 
-          {/* Why Points */}
-          <ul className="mt-8 space-y-4 text-lg md:text-xl font-bold max-w-3xl mx-auto">
-            <li>• Tool-ready team with power brushes, scrubbers & pro equipment</li>
-            <li>• Fast, reliable turnaround times (great for Airbnb & move-outs)</li>
-            <li>• Transparent pricing — no surprise fees</li>
-            <li>• Fully insured, GTA-based professionals</li>
-          </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-white shadow-xl rounded-2xl p-8 hover:shadow-2xl transition">
+              <div className="text-[#32D296] text-4xl mb-3">⚙️</div>
+              <h3 className="text-xl font-semibold mb-2">Tool-Ready Team</h3>
+              <p className="text-gray-600">Power brushes, scrubbers & pro equipment for deep, fast, efficient cleaning.</p>
+            </div>
+
+            <div className="bg-white shadow-xl rounded-2xl p-8 hover:shadow-2xl transition">
+              <div className="text-[#32D296] text-4xl mb-3">⏱️</div>
+              <h3 className="text-xl font-semibold mb-2">Fast Turnarounds</h3>
+              <p className="text-gray-600">Great for Airbnb, move-outs, and last-minute condo cleanings.</p>
+            </div>
+
+            <div className="bg-white shadow-xl rounded-2xl p-8 hover:shadow-2xl transition">
+              <div className="text-[#32D296] text-4xl mb-3">💵</div>
+              <h3 className="text-xl font-semibold mb-2">Transparent Pricing</h3>
+              <p className="text-gray-600">Clear rates, no upsells, no surprise fees — ever.</p>
+            </div>
+
+            <div className="bg-white shadow-xl rounded-2xl p-8 hover:shadow-2xl transition">
+              <div className="text-[#32D296] text-4xl mb-3">🔒</div>
+              <h3 className="text-xl font-semibold mb-2">Insured Professionals</h3>
+              <p className="text-gray-600">Fully insured, GTA-based cleaners you can trust in your home.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -203,12 +171,12 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-[#3FCF8E] text-2xl font-bold mt-2">Starting at {item.price}</p>
+                <p className="text-[#32D296] text-2xl font-bold mt-2">Starting at {item.price}</p>
                 <p className="mt-3 text-sm text-gray-600">{item.desc}</p>
                 <a
                   target="_top"
                   href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
-                  className="mt-4 inline-block w-full text-center px-4 py-2 rounded-lg bg-[#3FCF8E] text-white font-semibold hover:bg-[#38b87d] transition-colors"
+                  className="mt-4 inline-block w-full text-center px-4 py-2 rounded-lg bg-[#32D296] text-white font-semibold hover:bg-[#2bb882] transition-colors"
                 >
                   Book Now
                 </a>
@@ -284,32 +252,32 @@ export default function Home() {
         {/* CONTACT FORM */}
         <form className="mt-14 space-y-4" action="/api/contact" method="POST">
           <input
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#32D296]"
             placeholder="Name"
             name="name"
             required
           />
           <input
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#32D296]"
             placeholder="Email"
             type="email"
             name="email"
             required
           />
           <input
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#32D296]"
             placeholder="Phone"
             type="tel"
             name="phone"
             required
           />
           <input
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#32D296]"
             placeholder="Address"
             name="address"
           />
           <textarea
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#32D296]"
             rows={4}
             placeholder="Message"
             name="message"
@@ -317,7 +285,7 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="bg-[#3FCF8E] text-white px-6 py-3 rounded-lg w-full text-lg font-semibold hover:bg-[#38b87d] transition-colors"
+            className="bg-[#32D296] text-white px-6 py-3 rounded-lg w-full text-lg font-semibold hover:bg-[#2bb882] transition-colors"
           >
             Send Request
           </button>
@@ -325,7 +293,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[#3FCF8E] text-white py-10 px-6 text-center">
+      <footer className="bg-[#32D296] text-white py-10 px-6 text-center">
         <p className="font-bold text-xl">TurboTech Cleaning</p>
         <p className="mt-2">Condo • Airbnb • Move‑out • Deep Cleans</p>
         <p className="mt-1">Proudly serving the Greater Toronto Area</p>
