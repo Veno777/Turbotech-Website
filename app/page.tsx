@@ -8,6 +8,24 @@ import { getImage, getVideo } from './utils/turbophotos'
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [useImageFallback, setUseImageFallback] = useState(false)
+  const [currentCarouselImage, setCurrentCarouselImage] = useState(0)
+
+  // Carousel images
+  const carouselImages = [
+    getImage('pixabay271624'),
+    getImage('jvdm1454806'),
+    getImage('cleanliving'),
+    getImage('kitchen2'),
+    getImage('kitchen3'),
+  ]
+
+  // Auto-rotate carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentCarouselImage((prev) => (prev + 1) % carouselImages.length)
+    }, 4000) // 4 seconds
+    return () => clearInterval(interval)
+  }, [carouselImages.length])
 
   useEffect(() => {
     const video = videoRef.current
@@ -54,14 +72,14 @@ export default function Home() {
               muted
               loop
               playsInline
-              poster={getImage('pavelDanilyuk')}
+              poster={getImage('cleanliving')}
             >
               <source src={getVideo('spinClip')} type="video/quicktime" />
               Your browser does not support the video tag.
             </video>
           ) : (
             <Image
-              src={getImage('pavelDanilyuk')}
+              src={getImage('cleanliving')}
               alt="TurboTech Cleaners"
               fill
               className="object-cover"
@@ -71,13 +89,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
-        {/* Watermark Logo Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none z-10">
+        {/* Watermark Logo Overlay - Center, subtle opacity */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-12 pointer-events-none z-10">
           <Image
-            src={getImage('logo')}
+            src={getImage('logoWatermark')}
             alt="TurboTech Logo"
-            width={400}
-            height={400}
+            width={500}
+            height={500}
             className="object-contain"
           />
         </div>
@@ -87,22 +105,21 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
             Premium Condo & Home Cleaning in the GTA
           </h1>
-          <p className="text-lg md:text-xl text-white mb-8 opacity-95 drop-shadow-md">
-            Optional: Serving GTA condos & Airbnb hosts
+          <p className="text-lg md:text-xl text-white mb-2 opacity-95 drop-shadow-md">
+            Serving GTA condos & Airbnb hosts / Homeowners
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
             <a
+              target="_top"
               href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
-              target="_blank"
-              rel="nofollow noopener noreferrer"
               className="px-6 py-3 rounded-lg bg-[#09BCFF] text-white font-semibold hover:bg-[#08a8e6] transition-colors shadow-lg"
             >
               Book Now
             </a>
             <a
               href="tel:6477849120"
-              className="px-6 py-3 rounded-lg bg-[#28C76F] text-white font-semibold hover:bg-[#24b362] transition-colors shadow-lg"
+              className="px-6 py-3 rounded-lg bg-[#3FCF8E] text-white font-semibold hover:bg-[#38b87d] transition-colors shadow-lg"
             >
               Text Us
             </a>
@@ -110,40 +127,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* WHY SECTION */}
-      <section className="bg-[#F0FAFF] py-12 px-6 text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-6">Why Choose TurboTech Cleaning?</h2>
-        <ul className="mt-6 space-y-3 text-lg max-w-2xl mx-auto">
-          <li>• Tool-ready team with power brushes, scrubbers & pro equipment</li>
-          <li>• Fast, reliable turnaround times (great for Airbnb & move-outs)</li>
-          <li>• Transparent pricing — no surprise fees</li>
-          <li>• Fully insured, GTA-based professionals</li>
-        </ul>
+      {/* WHY SECTION - With Carousel */}
+      <section className="bg-white py-16 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Why Choose TurboTech Cleaning?
+          </h2>
+          
+          {/* Carousel */}
+          <div className="relative h-64 md:h-96 mb-12 rounded-lg overflow-hidden">
+            {carouselImages.map((img, i) => (
+              <div
+                key={i}
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  i === currentCarouselImage ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <Image
+                  src={img}
+                  alt={`TurboTech Cleaning ${i + 1}`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Why Points */}
+          <ul className="mt-8 space-y-4 text-lg md:text-xl font-bold max-w-3xl mx-auto">
+            <li>• Tool-ready team with power brushes, scrubbers & pro equipment</li>
+            <li>• Fast, reliable turnaround times (great for Airbnb & move-outs)</li>
+            <li>• Transparent pricing — no surprise fees</li>
+            <li>• Fully insured, GTA-based professionals</li>
+          </ul>
+        </div>
       </section>
 
       {/* PRICING / SERVICES */}
-      <section id="pricing" className="py-16 px-6">
+      <section id="pricing" className="py-16 px-6 bg-[#F0FAFF]">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Our Pricing</h2>
 
         <div className="mt-10 grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {[
             {
-              title: 'Condo Clean',
+              title: 'Condo Cleaning',
               price: '$99',
-              desc: 'Perfect for 1–2 bedroom condos. Includes kitchen, bathroom, floors, and surfaces.',
-              image: getImage('jvdm'), // cleanedbathroom.jpg equivalent
+              desc: 'Regular maintenance cleaning for your condo. Bathrooms, kitchen, appliances, cupboards.',
+              image: getImage('cleanedbathroom'),
             },
             {
-              title: 'Home Clean',
+              title: 'Home Cleaning',
               price: '$149',
-              desc: 'Full clean for houses & larger units. Kitchens, washrooms, common areas, and floors.',
-              image: getImage('fotoaibe'), // cleankitchen.jpg equivalent
+              desc: 'Full home cleaning. Kitchen, bathrooms, floors.',
+              image: getImage('cleankitchen'),
             },
             {
-              title: 'Office Clean',
+              title: 'Office Cleaning',
               price: '$129',
-              desc: 'Ideal for small offices and workspaces. Desks, floors, washrooms, and garbage removal.',
-              image: getImage('pavelDanilyuk'), // teamcleaners.jpg equivalent
+              desc: 'Office spaces, common areas, desks, floors.',
+              image: getImage('teamcleaners'),
             },
           ].map((item, i) => (
             <div
@@ -161,13 +203,12 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-[#28C76F] text-2xl font-bold mt-2">Starting at {item.price}</p>
+                <p className="text-[#3FCF8E] text-2xl font-bold mt-2">Starting at {item.price}</p>
                 <p className="mt-3 text-sm text-gray-600">{item.desc}</p>
                 <a
+                  target="_top"
                   href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
-                  target="_blank"
-                  rel="nofollow noopener noreferrer"
-                  className="mt-4 inline-block w-full text-center px-4 py-2 rounded-lg bg-[#28C76F] text-white font-semibold hover:bg-[#24b362] transition-colors"
+                  className="mt-4 inline-block w-full text-center px-4 py-2 rounded-lg bg-[#3FCF8E] text-white font-semibold hover:bg-[#38b87d] transition-colors"
                 >
                   Book Now
                 </a>
@@ -178,31 +219,31 @@ export default function Home() {
       </section>
 
       {/* REVIEWS / TESTIMONIALS */}
-      <section id="reviews" className="bg-[#F0FAFF] py-16 px-6">
+      <section id="reviews" className="bg-white py-16 px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">What Clients Say</h2>
 
         <div className="mt-10 grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {[
             {
-              name: 'Rohan S.',
+              name: 'Rohan',
               location: 'Brampton',
-              text: 'My old tenants left the unit a complete mess, and TurboTech saved me with a fast, detailed clean. The cleaner I spoke with was very easy to work with and made everything stress-free.',
-              image: getImage('karolaG1'), // person1
+              text: 'Something my old tenants left the place a mess. TurboTech really saved me, and the guy I talked with was very easy to work with. Highly recommended!',
+              image: getImage('person1'),
             },
             {
-              name: 'Sarah M.',
+              name: 'Sarah M',
               location: 'Toronto',
-              text: 'They were extremely professional and came with serious power tools. They worked fast, didn\'t waste time, and left my condo noticeably cleaner than any past service I tried.',
-              image: getImage('karolaG2'), // person2
+              text: 'They are very professional and came in with a lot of power tools; they do not waste time. Great experience and thorough!',
+              image: getImage('person2'),
             },
             {
-              name: 'Jalen G.',
+              name: 'Jalen G',
               location: 'North York',
-              text: 'My Airbnb was trashed after a weekend booking, and TurboTech had the best price. I took a chance and now I\'m locked in for monthly cleans — shoutout Veno for the consistency.',
-              image: getImage('lilianaDrew1'), // person3
+              text: 'My Airbnb was so trashed, and TurboTech had the best price. I took a chance, and now we\'re locked in for monthly cleans. Shoutout to Veno!',
+              image: getImage('person3'),
             },
           ].map((review, i) => (
-            <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm p-6">
+            <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm p-6 border border-gray-100">
               {/* Reviewer Image */}
               <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
                 <Image
@@ -220,37 +261,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* GALLERY */}
-      <section className="py-16 px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Our Work</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-          {[
-            getImage('lilianaDrew1'),
-            getImage('lilianaDrew2'),
-            getImage('janetrangdoan'),
-            getImage('jvdm'),
-            getImage('fotoaibe'),
-            getImage('pavelDanilyuk'),
-            getImage('karolaG1'),
-            getImage('karolaG2'),
-          ].map((image, i) => (
-            <div
-              key={i}
-              className="relative aspect-square rounded-lg overflow-hidden group cursor-pointer hover:scale-105 transition-transform duration-300"
-            >
-              <Image
-                src={image}
-                alt={`TurboTech Cleaning ${i + 1}`}
-                fill
-                className="object-cover group-hover:brightness-110 transition-all"
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FAQ + CONTACT */}
-      <section id="faq" className="py-20 px-6 max-w-3xl mx-auto">
+      {/* FAQ + CONTACT FORM */}
+      <section id="faq" className="py-20 px-6 max-w-3xl mx-auto bg-[#F0FAFF]">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Frequently Asked Questions</h2>
 
         <div className="mt-10 space-y-6">
@@ -259,10 +271,10 @@ export default function Home() {
             ['Do you bring your own supplies?', 'Yes — we bring all tools, vacuums, solutions, and equipment.'],
             ['Is there a cancellation fee?', 'Cancellations within 24 hours may include a small fee.'],
             ['Can I request same-day cleaning?', 'Yes — subject to availability. Text for fastest response.'],
-            ['Are you insured?', 'Yes — fully insured & background checked.'],
+            ['Is TurboTech insured?', 'Yes — fully insured & background checked.'],
             ['Do you clean condos of all sizes?', 'Yes — studios to penthouses.'],
           ].map(([q, a], i) => (
-            <div key={i} className="border-b border-gray-200 pb-4">
+            <div key={i} className="bg-white p-4 rounded-lg border border-gray-200">
               <p className="font-semibold text-lg mb-2">{q}</p>
               <p className="text-sm text-gray-600">{a}</p>
             </div>
@@ -272,32 +284,32 @@ export default function Home() {
         {/* CONTACT FORM */}
         <form className="mt-14 space-y-4" action="/api/contact" method="POST">
           <input
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#28C76F]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
             placeholder="Name"
             name="name"
             required
           />
           <input
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#28C76F]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
             placeholder="Email"
             type="email"
             name="email"
             required
           />
           <input
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#28C76F]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
             placeholder="Phone"
             type="tel"
             name="phone"
             required
           />
           <input
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#28C76F]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
             placeholder="Address"
             name="address"
           />
           <textarea
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#28C76F]"
+            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3FCF8E]"
             rows={4}
             placeholder="Message"
             name="message"
@@ -305,7 +317,7 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="bg-[#28C76F] text-white px-6 py-3 rounded-lg w-full text-lg font-semibold hover:bg-[#24b362] transition-colors"
+            className="bg-[#3FCF8E] text-white px-6 py-3 rounded-lg w-full text-lg font-semibold hover:bg-[#38b87d] transition-colors"
           >
             Send Request
           </button>
@@ -313,19 +325,19 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0A2A43] text-white py-10 px-6 text-center">
+      <footer className="bg-[#3FCF8E] text-white py-10 px-6 text-center">
         <p className="font-bold text-xl">TurboTech Cleaning</p>
-        <p className="mt-2">Condo • Home • Office • Move-out</p>
-        <p className="mt-1">Serving the Greater Toronto Area</p>
+        <p className="mt-2">Condo • Airbnb • Move‑out • Deep Cleans</p>
+        <p className="mt-1">Proudly serving the Greater Toronto Area</p>
 
         <p className="mt-4">
-          <a href="tel:6477849120" className="hover:text-[#28C76F] transition-colors">
-            📞 647-784-9120
+          <a href="tel:6477849120" className="hover:text-[#0A2A43] transition-colors font-semibold">
+            Phone: 647-784-9120
           </a>
         </p>
         <p className="mt-1">
-          <a href="mailto:hello@turbotechcleaners.com" className="hover:text-[#28C76F] transition-colors">
-            📩 hello@turbotechcleaners.com
+          <a href="mailto:hello@turbotechcleaners.com" className="hover:text-[#0A2A43] transition-colors font-semibold">
+            Email: hello@turbotechcleaners.com
           </a>
         </p>
 

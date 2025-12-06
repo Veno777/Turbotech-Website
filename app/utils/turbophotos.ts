@@ -12,6 +12,29 @@ export interface MediaFile {
 
 // Available images from turbophotos
 export const turbophotosImages = {
+  // New logo
+  newlogo: '/turbophotos/newlogo.png',
+  logo: '/turbophotos/TurboTechLogo.png',
+  logoWatermark: '/turbophotos/TurboTechLogo-removebg-preview.png',
+  
+  // Person images
+  person1: '/turbophotos/person1.png',
+  person2: '/turbophotos/person2.png',
+  person3: '/turbophotos/person3.png',
+  
+  // Service images
+  cleanedbathroom: '/turbophotos/cleanedbathroom.jpg',
+  cleankitchen: '/turbophotos/cleankitchen.jpg',
+  teamcleaners: '/turbophotos/teamcleaners.jpg',
+  
+  // Carousel images
+  pixabay271624: '/turbophotos/pexels-pixabay-271624.jpg',
+  jvdm1454806: '/turbophotos/pexels-jvdm-1454806.jpg',
+  cleanliving: '/turbophotos/cleanliving.jpg',
+  kitchen2: '/turbophotos/kitchen2.jpg',
+  kitchen3: '/turbophotos/kitchen3.jpg',
+  
+  // Legacy images (kept for compatibility)
   falling4utah: '/turbophotos/pexels-falling4utah-2724749.jpg',
   fotoaibe: '/turbophotos/pexels-fotoaibe-1571468.jpg',
   janetrangdoan: '/turbophotos/pexels-janetrangdoan-1128678.jpg',
@@ -23,11 +46,9 @@ export const turbophotosImages = {
   mali: '/turbophotos/pexels-mali-229789.jpg',
   pavelDanilyuk: '/turbophotos/pexels-pavel-danilyuk-7108400.jpg',
   pixabay: '/turbophotos/pexels-pixabay-358592.jpg',
-  logo: '/turbophotos/TurboTechLogo.png',
 } as const
 
 // Available videos from turbophotos
-// Note: File names with spaces will be URL-encoded automatically by Next.js
 export const turbophotosVideos = {
   miniScrub: '/turbophotos/mini scrub turbo.mov',
   cornerClip: '/turbophotos/Turbo corner clip.mov',
@@ -68,4 +89,3 @@ export function getImage(name: keyof typeof turbophotosImages): string {
 export function getVideo(name: keyof typeof turbophotosVideos): string {
   return getVideoUrl(name)
 }
-

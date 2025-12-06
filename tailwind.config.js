@@ -12,7 +12,7 @@ module.exports = {
           blue: '#09BCFF', // Bright Turbine Blue
           navy: '#0A2A43', // Deep Navy Blue
           turquoise: '#09BCFF', // Alias for consistency
-          green: '#28C76F', // Bright Green accent
+          green: '#3FCF8E', // Bright Green accent
         },
         background: {
           white: '#FFFFFF',

@@ -33,14 +33,14 @@ export default function Navbar() {
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Logo - Larger */}
           <div className="flex-shrink-0">
-            <a href="/" className="flex items-center space-x-3">
+            <a href="/" className="flex items-center">
               <Image
-                src={getImage('logo')}
+                src={getImage('newlogo')}
                 alt="TurboTech Cleaners Logo"
-                width={120}
-                height={40}
+                width={200}
+                height={70}
                 className="object-contain"
                 priority
               />
@@ -53,7 +53,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[#0A2A43] hover:text-[#09BCFF] transition-colors font-medium"
+                className="text-black hover:text-[#09BCFF] transition-colors font-bold text-lg"
               >
                 {link.name}
               </a>
@@ -61,17 +61,24 @@ export default function Navbar() {
             {/* Phone Number */}
             <a
               href="tel:6477849120"
-              className="text-[#0A2A43] hover:text-[#09BCFF] font-semibold transition-colors"
+              className="text-black hover:text-[#09BCFF] font-bold text-lg transition-colors"
             >
               647-784-9120
             </a>
             {/* Book Now Button */}
             <a
+              target="_top"
               href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              className="bg-[#28C76F] hover:bg-[#24b362] text-white font-semibold py-2 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-sm"
-              style={{ letterSpacing: '0.5px' }}
+              className="text-white font-medium text-sm border-radius-8"
+              style={{
+                backgroundColor: '#09BCFF',
+                borderRadius: '8px',
+                padding: '0 28px',
+                height: '40px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
             >
               Book Now
             </a>
@@ -108,7 +115,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="block text-[#0A2A43] hover:text-[#09BCFF] transition-colors font-medium"
+                className="block text-black hover:text-[#09BCFF] transition-colors font-bold text-lg"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
@@ -117,19 +124,26 @@ export default function Navbar() {
             {/* Mobile Phone Number */}
             <a
               href="tel:6477849120"
-              className="block text-[#0A2A43] hover:text-[#09BCFF] font-semibold transition-colors"
+              className="block text-black hover:text-[#09BCFF] font-bold text-lg transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Call: 647-784-9120
+              647-784-9120
             </a>
             {/* Mobile Book Now Button */}
             <div className="pt-2">
               <a
+                target="_top"
                 href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
-                target="_blank"
-                rel="nofollow noopener noreferrer"
-                className="block w-full bg-[#28C76F] hover:bg-[#24b362] text-white font-semibold py-3 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-center text-sm"
-                style={{ letterSpacing: '0.5px' }}
+                className="block w-full text-white font-medium text-sm text-center"
+                style={{
+                  backgroundColor: '#09BCFF',
+                  borderRadius: '8px',
+                  padding: '12px 28px',
+                  height: '40px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Book Now
