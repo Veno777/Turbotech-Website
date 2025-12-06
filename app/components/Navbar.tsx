@@ -39,9 +39,9 @@ export default function Navbar() {
               <Image
                 src={getImage('newlogo')}
                 alt="TurboTech Cleaners Logo"
-                width={160}
-                height={80}
-                className="object-contain w-40"
+                width={200}
+                height={70}
+                className="object-contain"
                 priority
               />
             </a>
@@ -53,7 +53,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-black hover:text-[#32D296] transition-colors font-semibold text-lg"
+                className="text-black hover:text-[#09BCFF] transition-colors font-bold text-lg"
               >
                 {link.name}
               </a>
@@ -61,7 +61,7 @@ export default function Navbar() {
             {/* Phone Number */}
             <a
               href="tel:6477849120"
-              className="text-black hover:text-[#32D296] font-semibold text-lg transition-colors"
+              className="text-black hover:text-[#09BCFF] font-bold text-lg transition-colors"
             >
               647-784-9120
             </a>
