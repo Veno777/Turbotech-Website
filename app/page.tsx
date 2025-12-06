@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCarouselImage((prev) => (prev + 1) % carouselImages.length)
-    }, 4000) // 4 seconds
+    }, 3700) // 3.7 seconds
     return () => clearInterval(interval)
   }, [carouselImages.length])
 
@@ -60,9 +60,9 @@ export default function Home() {
     <main className="bg-white text-[#0A2A43]">
       <Navbar />
 
-      {/* HERO - Video Background with Watermark */}
+      {/* HERO - Video Background */}
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
+        {/* Video Background - Same video for mobile and desktop */}
         <div className="absolute inset-0 w-full h-full">
           {!useImageFallback ? (
             <video
@@ -74,7 +74,7 @@ export default function Home() {
               playsInline
               poster={getImage('cleanliving')}
             >
-              <source src={getVideo('spinClip')} type="video/quicktime" />
+              <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           ) : (
@@ -117,14 +117,14 @@ export default function Home() {
       </section>
 
       {/* WHY SECTION - With Carousel */}
-      <section className="bg-white py-16 px-6">
+      <section className="bg-white py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
             Why Choose TurboTech Cleaning?
           </h2>
           
           {/* Carousel */}
-          <div className="relative h-64 md:h-96 mb-12 rounded-lg overflow-hidden">
+          <div className="relative h-64 md:h-96 mb-16 rounded-xl overflow-hidden shadow-lg">
             {carouselImages.map((img, i) => (
               <div
                 key={i}
@@ -142,13 +142,32 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Why Points */}
-          <ul className="mt-8 space-y-4 text-lg md:text-xl font-bold max-w-3xl mx-auto">
-            <li>• Tool-ready team with power brushes, scrubbers & pro equipment</li>
-            <li>• Fast, reliable turnaround times (great for Airbnb & move-outs)</li>
-            <li>• Transparent pricing — no surprise fees</li>
-            <li>• Fully insured, GTA-based professionals</li>
-          </ul>
+          {/* Why Points - Professional Card Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-blue-200">
+              <div className="text-4xl mb-4 text-center">⚙️</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">Tool-Ready Team</h3>
+              <p className="text-sm text-gray-700 text-center leading-relaxed">Power brushes, scrubbers & pro equipment for deep, fast, efficient cleaning.</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-green-200">
+              <div className="text-4xl mb-4 text-center">⏱️</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">Fast Turnarounds</h3>
+              <p className="text-sm text-gray-700 text-center leading-relaxed">Great for Airbnb, move-outs, and last-minute condo cleanings.</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-cyan-200">
+              <div className="text-4xl mb-4 text-center">💵</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">Transparent Pricing</h3>
+              <p className="text-sm text-gray-700 text-center leading-relaxed">Clear rates, no upsells, no surprise fees — ever.</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-purple-200">
+              <div className="text-4xl mb-4 text-center">🔒</div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">Insured Professionals</h3>
+              <p className="text-sm text-gray-700 text-center leading-relaxed">Fully insured, GTA-based cleaners you can trust in your home.</p>
+            </div>
+          </div>
         </div>
       </section>
 
