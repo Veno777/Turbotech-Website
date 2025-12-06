@@ -67,8 +67,10 @@ export default function Navbar() {
             </a>
             {/* Book Now Button */}
             <a
-              href="/book"
-              className="bg-[#09BCFF] hover:bg-[#08a8e6] text-white font-semibold py-2 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-sm"
+              href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              className="bg-[#28C76F] hover:bg-[#24b362] text-white font-semibold py-2 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-sm"
               style={{ letterSpacing: '0.5px' }}
             >
               Book Now
@@ -123,8 +125,10 @@ export default function Navbar() {
             {/* Mobile Book Now Button */}
             <div className="pt-2">
               <a
-                href="/book"
-                className="block w-full bg-[#09BCFF] hover:bg-[#08a8e6] text-white font-semibold py-3 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-center text-sm"
+                href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                className="block w-full bg-[#28C76F] hover:bg-[#24b362] text-white font-semibold py-3 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-center text-sm"
                 style={{ letterSpacing: '0.5px' }}
                 onClick={() => setIsMobileMenuOpen(false)}
               >

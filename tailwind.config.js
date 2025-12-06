@@ -12,10 +12,11 @@ module.exports = {
           blue: '#09BCFF', // Bright Turbine Blue
           navy: '#0A2A43', // Deep Navy Blue
           turquoise: '#09BCFF', // Alias for consistency
+          green: '#28C76F', // Bright Green accent
         },
         background: {
           white: '#FFFFFF',
-          light: '#E8F8FF', // Light Blue Background Tint
+          light: '#F0FAFF', // Light background tint
         },
       },
       fontFamily: {
