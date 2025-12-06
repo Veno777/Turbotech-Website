@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCarouselImage((prev) => (prev + 1) % carouselImages.length)
-    }, 3700) // 3.7 seconds
+    }, 3000) // 3 seconds
     return () => clearInterval(interval)
   }, [carouselImages.length])
 
@@ -180,7 +180,7 @@ export default function Home() {
             {
               title: 'Condo Cleaning',
               price: '$99',
-              desc: 'Regular maintenance cleaning for your condo. Includes bathrooms, kitchen, appliances, cupboards, and common living areas to keep your space fresh and spotless.',
+              desc: 'Regular maintenance cleaning for your condo. Includes bathrooms, kitchen, appliances, cupboards, and common living areas to keep your space spotless.',
               image: getImage('cleanedbathroom'),
             },
             {
