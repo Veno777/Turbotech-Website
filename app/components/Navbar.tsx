@@ -17,11 +17,10 @@ export default function Navbar() {
   }, [])
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
+    { name: 'Home', href: '/' },
     { name: 'Pricing', href: '#pricing' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Reviews', href: '#reviews' },
+    { name: 'FAQ', href: '#faq' },
   ]
 
   return (
@@ -36,7 +35,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#home" className="flex items-center space-x-3">
+            <a href="/" className="flex items-center space-x-3">
               <Image
                 src={getImage('logo')}
                 alt="TurboTech Cleaners Logo"
@@ -54,7 +53,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-gray-700 hover:text-primary-blue transition-colors font-medium"
+                className="text-[#0A2A43] hover:text-[#09BCFF] transition-colors font-medium"
               >
                 {link.name}
               </a>
@@ -62,16 +61,14 @@ export default function Navbar() {
             {/* Phone Number */}
             <a
               href="tel:6477849120"
-              className="text-primary-blue hover:text-primary-turquoise font-semibold transition-colors"
+              className="text-[#0A2A43] hover:text-[#09BCFF] font-semibold transition-colors"
             >
               647-784-9120
             </a>
             {/* Book Now Button */}
             <a
-              href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              className="bg-primary-turquoise hover:bg-[#08a8e6] text-white font-semibold py-2 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-sm"
+              href="/book"
+              className="bg-[#09BCFF] hover:bg-[#08a8e6] text-white font-semibold py-2 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-sm"
               style={{ letterSpacing: '0.5px' }}
             >
               Book Now
@@ -109,7 +106,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="block text-gray-700 hover:text-primary-blue transition-colors font-medium"
+                className="block text-[#0A2A43] hover:text-[#09BCFF] transition-colors font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
@@ -118,7 +115,7 @@ export default function Navbar() {
             {/* Mobile Phone Number */}
             <a
               href="tel:6477849120"
-              className="block text-primary-blue hover:text-primary-turquoise font-semibold transition-colors"
+              className="block text-[#0A2A43] hover:text-[#09BCFF] font-semibold transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Call: 647-784-9120
@@ -126,10 +123,8 @@ export default function Navbar() {
             {/* Mobile Book Now Button */}
             <div className="pt-2">
               <a
-                href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
-                target="_blank"
-                rel="nofollow noopener noreferrer"
-                className="block w-full bg-primary-turquoise hover:bg-[#08a8e6] text-white font-semibold py-3 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-center text-sm"
+                href="/book"
+                className="block w-full bg-[#09BCFF] hover:bg-[#08a8e6] text-white font-semibold py-3 px-6 rounded-lg uppercase tracking-wide transition-all duration-300 text-center text-sm"
                 style={{ letterSpacing: '0.5px' }}
                 onClick={() => setIsMobileMenuOpen(false)}
               >

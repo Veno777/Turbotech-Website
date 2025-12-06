@@ -9,12 +9,13 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          silver: '#C0C0C0',
-          blue: '#1E3A8A',
-          turquoise: '#09BCFF', // Brand color for booking buttons
+          blue: '#09BCFF', // Bright Turbine Blue
+          navy: '#0A2A43', // Deep Navy Blue
+          turquoise: '#09BCFF', // Alias for consistency
         },
-        secondary: {
+        background: {
           white: '#FFFFFF',
+          light: '#E8F8FF', // Light Blue Background Tint
         },
       },
       fontFamily: {
