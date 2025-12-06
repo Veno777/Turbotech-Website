@@ -180,19 +180,19 @@ export default function Home() {
             {
               title: 'Condo Cleaning',
               price: '$99',
-              desc: 'Regular maintenance cleaning for your condo. Bathrooms, kitchen, appliances, cupboards.',
+              desc: 'Regular maintenance cleaning for your condo. Includes bathrooms, kitchen, appliances, cupboards, and common living areas to keep your space fresh and spotless.',
               image: getImage('cleanedbathroom'),
             },
             {
               title: 'Home Cleaning',
               price: '$149',
-              desc: 'Full home cleaning. Kitchen, bathrooms, floors.',
+              desc: 'Comprehensive full-home cleaning. We cover kitchens, bathrooms, floors, and living spaces, giving your home a thorough refresh from top to bottom.',
               image: getImage('cleankitchen'),
             },
             {
               title: 'Office Cleaning',
               price: '$129',
-              desc: 'Office spaces, common areas, desks, floors.',
+              desc: 'Professional cleaning for office spaces. Includes common areas, desks, floors, and high-touch surfaces to maintain a clean and productive work environment.',
               image: getImage('teamcleaners'),
             },
           ].map((item, i) => (
