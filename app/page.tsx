@@ -6,7 +6,8 @@ import Navbar from './components/Navbar'
 import { getImage, getVideo } from './utils/turbophotos'
 
 export default function Home() {
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const mobileVideoRef = useRef<HTMLVideoElement>(null)
+  const desktopVideoRef = useRef<HTMLVideoElement>(null)
   const [useImageFallback, setUseImageFallback] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
   const [currentCarouselImage, setCurrentCarouselImage] = useState(0)
@@ -30,8 +31,12 @@ export default function Home() {
   }, [carouselImages.length])
 
   useEffect(() => {
-    const video = videoRef.current
-    if (!video) {
+    const mobileVideo = mobileVideoRef.current
+    const desktopVideo = desktopVideoRef.current
+    const isMobile = window.innerWidth < 768
+    const activeVideo = isMobile ? mobileVideo : desktopVideo
+
+    if (!activeVideo) {
       setUseImageFallback(true)
       return
     }
@@ -44,14 +49,28 @@ export default function Home() {
       setUseImageFallback(true)
     }
 
-    video.addEventListener('canplay', handleCanPlay)
-    video.addEventListener('error', handleError)
+    // Set up event listeners for both videos
+    if (mobileVideo) {
+      mobileVideo.addEventListener('canplay', handleCanPlay)
+      mobileVideo.addEventListener('error', handleError)
+    }
+    if (desktopVideo) {
+      desktopVideo.addEventListener('canplay', handleCanPlay)
+      desktopVideo.addEventListener('error', handleError)
+    }
 
     const tryPlay = async () => {
       try {
-        video.muted = true
-        video.preload = 'auto'
-        await video.play()
+        if (mobileVideo) {
+          mobileVideo.muted = true
+          mobileVideo.preload = 'auto'
+          await mobileVideo.play()
+        }
+        if (desktopVideo) {
+          desktopVideo.muted = true
+          desktopVideo.preload = 'auto'
+          await desktopVideo.play()
+        }
       } catch (e) {
         setUseImageFallback(true)
       }
@@ -61,13 +80,20 @@ export default function Home() {
     // Accessibility: respect prefers-reduced-motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     if (mediaQuery && mediaQuery.matches) {
-      video.pause()
+      if (mobileVideo) mobileVideo.pause()
+      if (desktopVideo) desktopVideo.pause()
       setUseImageFallback(true)
     }
 
     return () => {
-      video.removeEventListener('canplay', handleCanPlay)
-      video.removeEventListener('error', handleError)
+      if (mobileVideo) {
+        mobileVideo.removeEventListener('canplay', handleCanPlay)
+        mobileVideo.removeEventListener('error', handleError)
+      }
+      if (desktopVideo) {
+        desktopVideo.removeEventListener('canplay', handleCanPlay)
+        desktopVideo.removeEventListener('error', handleError)
+      }
     }
   }, [])
 
@@ -77,23 +103,41 @@ export default function Home() {
 
       {/* HERO - Video Background */}
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background - Same video for mobile and desktop */}
+        {/* Video Background - Different videos for mobile and desktop */}
         <div className="absolute inset-0 w-full h-full">
           {!useImageFallback ? (
-            <video
-              ref={videoRef}
-              className={`w-full h-full object-contain md:object-cover transition-opacity duration-300 ${
-                videoReady ? 'opacity-100' : 'opacity-0'
-              }`}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-            >
-              <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <>
+              {/* Mobile Video */}
+              <video
+                ref={mobileVideoRef}
+                className={`md:hidden w-full h-full object-contain transition-opacity duration-300 ${
+                  videoReady ? 'opacity-100' : 'opacity-0'
+                }`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              >
+                <source src="/turbophotos/mini scrub turbo (1).mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              {/* Desktop Video */}
+              <video
+                ref={desktopVideoRef}
+                className={`hidden md:block w-full h-full object-cover transition-opacity duration-300 ${
+                  videoReady ? 'opacity-100' : 'opacity-0'
+                }`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              >
+                <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </>
           ) : (
             <Image
               src={getImage('cleanliving')}
