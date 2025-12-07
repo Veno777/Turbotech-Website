@@ -31,73 +31,68 @@ export default function Home() {
   }, [carouselImages.length])
 
   useEffect(() => {
-    let cleanup: (() => void) | undefined
+    const setupVideo = (video: HTMLVideoElement | null, isMobile: boolean) => {
+      if (!video) return
+
+      const handleCanPlay = () => {
+        setVideoReady(true)
+      }
+
+      const handleError = (e: Event) => {
+        console.error('Video error:', e, 'Video src:', video.src)
+        setUseImageFallback(true)
+      }
+
+      const handleLoadedData = () => {
+        setVideoReady(true)
+      }
+
+      video.addEventListener('canplay', handleCanPlay)
+      video.addEventListener('loadeddata', handleLoadedData)
+      video.addEventListener('error', handleError)
+
+      const tryPlay = async () => {
+        try {
+          video.muted = true
+          video.preload = 'auto'
+          await video.play()
+        } catch (e) {
+          console.error('Video play error:', e)
+        }
+      }
+      tryPlay()
+
+      return () => {
+        video.removeEventListener('canplay', handleCanPlay)
+        video.removeEventListener('loadeddata', handleLoadedData)
+        video.removeEventListener('error', handleError)
+      }
+    }
 
     // Use a timeout to ensure videos are mounted
     const timer = setTimeout(() => {
       const mobileVideo = mobileVideoRef.current
       const desktopVideo = desktopVideoRef.current
       const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-      const activeVideo = isMobile ? mobileVideo : desktopVideo
 
-      if (!activeVideo) {
-        // If no active video, check if we should use fallback
-        if (!mobileVideo && !desktopVideo) {
-          setUseImageFallback(true)
-        }
-        return
-      }
-
-      const handleCanPlay = () => {
-        setVideoReady(true)
-      }
-
-      const handleError = () => {
+      if (isMobile && mobileVideo) {
+        setupVideo(mobileVideo, true)
+      } else if (!isMobile && desktopVideo) {
+        setupVideo(desktopVideo, false)
+      } else if (!mobileVideo && !desktopVideo) {
         setUseImageFallback(true)
-      }
-
-      // Set up event listeners for the active video
-      activeVideo.addEventListener('canplay', handleCanPlay)
-      activeVideo.addEventListener('error', handleError)
-
-      const tryPlay = async () => {
-        try {
-          activeVideo.muted = true
-          activeVideo.preload = 'auto'
-          await activeVideo.play()
-        } catch (e) {
-          // Don't immediately set fallback, let error event handle it
-          console.error('Video play error:', e)
-        }
-      }
-      tryPlay()
-
-      // Also set up the other video (for responsive switching)
-      if (isMobile && desktopVideo) {
-        desktopVideo.muted = true
-        desktopVideo.preload = 'none' // Don't preload desktop video on mobile
-      } else if (!isMobile && mobileVideo) {
-        mobileVideo.muted = true
-        mobileVideo.preload = 'none' // Don't preload mobile video on desktop
       }
 
       // Accessibility: respect prefers-reduced-motion
       const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
       if (mediaQuery && mediaQuery.matches) {
-        activeVideo.pause()
+        if (mobileVideo) mobileVideo.pause()
+        if (desktopVideo) desktopVideo.pause()
         setUseImageFallback(true)
-      }
-
-      cleanup = () => {
-        activeVideo.removeEventListener('canplay', handleCanPlay)
-        activeVideo.removeEventListener('error', handleError)
       }
     }, 100)
 
-    return () => {
-      clearTimeout(timer)
-      if (cleanup) cleanup()
-    }
+    return () => clearTimeout(timer)
   }, [])
 
   return (
@@ -113,29 +108,27 @@ export default function Home() {
               {/* Mobile Video */}
               <video
                 ref={mobileVideoRef}
-                className={`md:hidden w-full h-full object-contain transition-opacity duration-300 ${
-                  videoReady ? 'opacity-100' : 'opacity-0'
-                }`}
+                className="md:hidden w-full h-full object-contain"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="auto"
+                style={{ display: 'block' }}
               >
-                <source src="/turbophotos/mini%20scrub%20turbo%20%281%29.mp4" type="video/mp4" />
+                <source src={`/turbophotos/${encodeURIComponent('mini scrub turbo (1).mp4')}`} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               {/* Desktop Video */}
               <video
                 ref={desktopVideoRef}
-                className={`hidden md:block w-full h-full object-cover transition-opacity duration-300 ${
-                  videoReady ? 'opacity-100' : 'opacity-0'
-                }`}
+                className="hidden md:block w-full h-full object-cover"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="auto"
+                style={{ display: 'block' }}
               >
                 <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
