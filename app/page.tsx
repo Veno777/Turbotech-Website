@@ -8,6 +8,7 @@ import { getImage, getVideo } from './utils/turbophotos'
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [useImageFallback, setUseImageFallback] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
   const [currentCarouselImage, setCurrentCarouselImage] = useState(0)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
 
@@ -35,13 +36,21 @@ export default function Home() {
       return
     }
 
-    video.addEventListener('error', () => {
+    const handleCanPlay = () => {
+      setVideoReady(true)
+    }
+
+    const handleError = () => {
       setUseImageFallback(true)
-    })
+    }
+
+    video.addEventListener('canplay', handleCanPlay)
+    video.addEventListener('error', handleError)
 
     const tryPlay = async () => {
       try {
         video.muted = true
+        video.preload = 'auto'
         await video.play()
       } catch (e) {
         setUseImageFallback(true)
@@ -54,6 +63,11 @@ export default function Home() {
     if (mediaQuery && mediaQuery.matches) {
       video.pause()
       setUseImageFallback(true)
+    }
+
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay)
+      video.removeEventListener('error', handleError)
     }
   }, [])
 
@@ -68,12 +82,14 @@ export default function Home() {
           {!useImageFallback ? (
             <video
               ref={videoRef}
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-contain md:object-cover transition-opacity duration-300 ${
+                videoReady ? 'opacity-100' : 'opacity-0'
+              }`}
               autoPlay
               muted
               loop
               playsInline
-              poster={getImage('cleanliving')}
+              preload="auto"
             >
               <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
               Your browser does not support the video tag.
