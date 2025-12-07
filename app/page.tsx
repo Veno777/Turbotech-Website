@@ -73,13 +73,16 @@ export default function Home() {
     const timer = setTimeout(() => {
       const mobileVideo = mobileVideoRef.current
       const desktopVideo = desktopVideoRef.current
-      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
-      if (isMobile && mobileVideo) {
+      // Set up both videos - they will be shown/hidden by CSS classes
+      if (mobileVideo) {
         setupVideo(mobileVideo, true)
-      } else if (!isMobile && desktopVideo) {
+      }
+      if (desktopVideo) {
         setupVideo(desktopVideo, false)
-      } else if (!mobileVideo && !desktopVideo) {
+      }
+      
+      if (!mobileVideo && !desktopVideo) {
         setUseImageFallback(true)
       }
 
