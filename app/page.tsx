@@ -31,69 +31,72 @@ export default function Home() {
   }, [carouselImages.length])
 
   useEffect(() => {
-    const mobileVideo = mobileVideoRef.current
-    const desktopVideo = desktopVideoRef.current
-    const isMobile = window.innerWidth < 768
-    const activeVideo = isMobile ? mobileVideo : desktopVideo
+    let cleanup: (() => void) | undefined
 
-    if (!activeVideo) {
-      setUseImageFallback(true)
-      return
-    }
+    // Use a timeout to ensure videos are mounted
+    const timer = setTimeout(() => {
+      const mobileVideo = mobileVideoRef.current
+      const desktopVideo = desktopVideoRef.current
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+      const activeVideo = isMobile ? mobileVideo : desktopVideo
 
-    const handleCanPlay = () => {
-      setVideoReady(true)
-    }
-
-    const handleError = () => {
-      setUseImageFallback(true)
-    }
-
-    // Set up event listeners for both videos
-    if (mobileVideo) {
-      mobileVideo.addEventListener('canplay', handleCanPlay)
-      mobileVideo.addEventListener('error', handleError)
-    }
-    if (desktopVideo) {
-      desktopVideo.addEventListener('canplay', handleCanPlay)
-      desktopVideo.addEventListener('error', handleError)
-    }
-
-    const tryPlay = async () => {
-      try {
-        if (mobileVideo) {
-          mobileVideo.muted = true
-          mobileVideo.preload = 'auto'
-          await mobileVideo.play()
+      if (!activeVideo) {
+        // If no active video, check if we should use fallback
+        if (!mobileVideo && !desktopVideo) {
+          setUseImageFallback(true)
         }
-        if (desktopVideo) {
-          desktopVideo.muted = true
-          desktopVideo.preload = 'auto'
-          await desktopVideo.play()
-        }
-      } catch (e) {
+        return
+      }
+
+      const handleCanPlay = () => {
+        setVideoReady(true)
+      }
+
+      const handleError = () => {
         setUseImageFallback(true)
       }
-    }
-    tryPlay()
 
-    // Accessibility: respect prefers-reduced-motion
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (mediaQuery && mediaQuery.matches) {
-      if (mobileVideo) mobileVideo.pause()
-      if (desktopVideo) desktopVideo.pause()
-      setUseImageFallback(true)
-    }
+      // Set up event listeners for the active video
+      activeVideo.addEventListener('canplay', handleCanPlay)
+      activeVideo.addEventListener('error', handleError)
+
+      const tryPlay = async () => {
+        try {
+          activeVideo.muted = true
+          activeVideo.preload = 'auto'
+          await activeVideo.play()
+        } catch (e) {
+          // Don't immediately set fallback, let error event handle it
+          console.error('Video play error:', e)
+        }
+      }
+      tryPlay()
+
+      // Also set up the other video (for responsive switching)
+      if (isMobile && desktopVideo) {
+        desktopVideo.muted = true
+        desktopVideo.preload = 'none' // Don't preload desktop video on mobile
+      } else if (!isMobile && mobileVideo) {
+        mobileVideo.muted = true
+        mobileVideo.preload = 'none' // Don't preload mobile video on desktop
+      }
+
+      // Accessibility: respect prefers-reduced-motion
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+      if (mediaQuery && mediaQuery.matches) {
+        activeVideo.pause()
+        setUseImageFallback(true)
+      }
+
+      cleanup = () => {
+        activeVideo.removeEventListener('canplay', handleCanPlay)
+        activeVideo.removeEventListener('error', handleError)
+      }
+    }, 100)
 
     return () => {
-      if (mobileVideo) {
-        mobileVideo.removeEventListener('canplay', handleCanPlay)
-        mobileVideo.removeEventListener('error', handleError)
-      }
-      if (desktopVideo) {
-        desktopVideo.removeEventListener('canplay', handleCanPlay)
-        desktopVideo.removeEventListener('error', handleError)
-      }
+      clearTimeout(timer)
+      if (cleanup) cleanup()
     }
   }, [])
 
@@ -119,7 +122,7 @@ export default function Home() {
                 playsInline
                 preload="auto"
               >
-                <source src="/turbophotos/mini scrub turbo (1).mp4" type="video/mp4" />
+                <source src="/turbophotos/mini%20scrub%20turbo%20%281%29.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               {/* Desktop Video */}
