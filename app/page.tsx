@@ -122,13 +122,14 @@ export default function Home() {
               {/* Desktop Video */}
               <video
                 ref={desktopVideoRef}
-                className="hidden md:block w-full h-full object-cover"
+                className={`hidden md:block w-full h-full object-cover transition-opacity duration-300 ${
+                  videoReady ? 'opacity-100' : 'opacity-0'
+                }`}
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="auto"
-                style={{ display: 'block' }}
               >
                 <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
