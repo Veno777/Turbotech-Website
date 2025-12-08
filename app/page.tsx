@@ -35,37 +35,53 @@ export default function Home() {
       if (!video) return
 
       const handleCanPlay = () => {
+        console.log(`${isMobile ? 'Mobile' : 'Desktop'} video can play`)
         setVideoReady(true)
       }
 
       const handleError = (e: Event) => {
-        console.error('Video error:', e, 'Video src:', video.src)
-        setUseImageFallback(true)
+        console.error(`${isMobile ? 'Mobile' : 'Desktop'} video error:`, e, 'Video src:', video.src, 'Error code:', video.error?.code)
+        // Don't immediately set fallback, let it try to load
       }
 
       const handleLoadedData = () => {
+        console.log(`${isMobile ? 'Mobile' : 'Desktop'} video loaded`)
         setVideoReady(true)
+      }
+
+      const handleLoadStart = () => {
+        console.log(`${isMobile ? 'Mobile' : 'Desktop'} video load started`)
       }
 
       video.addEventListener('canplay', handleCanPlay)
       video.addEventListener('loadeddata', handleLoadedData)
       video.addEventListener('error', handleError)
+      video.addEventListener('loadstart', handleLoadStart)
+
+      // Set video properties before trying to play
+      video.muted = true
+      video.preload = 'auto'
+      video.playsInline = true
 
       const tryPlay = async () => {
         try {
-          video.muted = true
-          video.preload = 'auto'
           await video.play()
+          console.log(`${isMobile ? 'Mobile' : 'Desktop'} video playing`)
         } catch (e) {
-          console.error('Video play error:', e)
+          console.error(`${isMobile ? 'Mobile' : 'Desktop'} video play error:`, e)
         }
       }
+      
+      // Try to play when video can start playing
+      video.addEventListener('loadedmetadata', tryPlay)
       tryPlay()
 
       return () => {
         video.removeEventListener('canplay', handleCanPlay)
         video.removeEventListener('loadeddata', handleLoadedData)
         video.removeEventListener('error', handleError)
+        video.removeEventListener('loadstart', handleLoadStart)
+        video.removeEventListener('loadedmetadata', tryPlay)
       }
     }
 
@@ -73,6 +89,8 @@ export default function Home() {
     const timer = setTimeout(() => {
       const mobileVideo = mobileVideoRef.current
       const desktopVideo = desktopVideoRef.current
+
+      console.log('Setting up videos - Mobile:', !!mobileVideo, 'Desktop:', !!desktopVideo)
 
       // Set up both videos - they will be shown/hidden by CSS classes
       if (mobileVideo) {
@@ -83,6 +101,7 @@ export default function Home() {
       }
       
       if (!mobileVideo && !desktopVideo) {
+        console.log('No videos found, using fallback')
         setUseImageFallback(true)
       }
 
@@ -131,8 +150,9 @@ export default function Home() {
                 loop
                 playsInline
                 preload="auto"
+                style={{ display: 'block' }}
               >
-                <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
+                <source src={`/turbophotos/${encodeURIComponent('Turbo Spin clip.mp4')}`} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </>
