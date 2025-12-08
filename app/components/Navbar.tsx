@@ -39,8 +39,8 @@ export default function Navbar() {
               <Image
                 src={getImage('newlogo')}
                 alt="TurboTech Cleaners Logo"
-                width={200}
-                height={70}
+                width={140}
+                height={49}
                 className="object-contain"
                 priority
               />
