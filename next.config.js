@@ -2,6 +2,8 @@
 const nextConfig = {
   images: {
     domains: ['localhost'],
+    unoptimized: false,
+    remotePatterns: [],
   },
   // Ensure static files are properly served
   async headers() {
