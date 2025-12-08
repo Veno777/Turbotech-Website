@@ -32,7 +32,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between min-h-[100px] py-2">
+        <div className="flex items-center justify-between min-h-[110px] py-3">
           {/* Logo - Larger */}
           <div className="flex-shrink-0 overflow-visible">
             <a href="/" className="flex items-center">
@@ -42,7 +42,7 @@ export default function Navbar() {
                 width={200}
                 height={70}
                 className="object-contain w-auto h-auto"
-                style={{ maxHeight: '90px', width: 'auto' }}
+                style={{ maxHeight: '95px', width: 'auto' }}
                 priority
               />
             </a>
