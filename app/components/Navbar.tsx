@@ -32,17 +32,17 @@ export default function Navbar() {
       }`}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between h-24">
+        <div className="flex items-center justify-between min-h-[100px] py-2">
           {/* Logo - Larger */}
-          <div className="flex-shrink-0 py-1 overflow-visible">
-            <a href="/" className="flex items-center h-full">
+          <div className="flex-shrink-0 overflow-visible">
+            <a href="/" className="flex items-center">
               <Image
                 src={getImage('newlogo')}
                 alt="TurboTech Cleaners Logo"
                 width={200}
                 height={70}
-                className="object-contain"
-                style={{ maxHeight: '100%' }}
+                className="object-contain w-auto h-auto"
+                style={{ maxHeight: '90px', width: 'auto' }}
                 priority
               />
             </a>
