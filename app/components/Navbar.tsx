@@ -41,8 +41,7 @@ export default function Navbar() {
                 alt="TurboTech Cleaners Logo"
                 width={200}
                 height={70}
-                className="object-contain w-auto h-auto"
-                style={{ maxHeight: '95px', width: 'auto' }}
+                className="object-contain"
                 priority
               />
             </a>
