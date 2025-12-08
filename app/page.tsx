@@ -125,9 +125,7 @@ export default function Home() {
               {/* Desktop Video */}
               <video
                 ref={desktopVideoRef}
-                className={`hidden md:block w-full h-full object-cover transition-opacity duration-300 ${
-                  videoReady ? 'opacity-100' : 'opacity-0'
-                }`}
+                className="hidden md:block w-full h-full object-cover"
                 autoPlay
                 muted
                 loop
