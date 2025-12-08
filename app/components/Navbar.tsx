@@ -34,7 +34,7 @@ export default function Navbar() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo - Larger */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 py-2 overflow-visible">
             <a href="/" className="flex items-center">
               <Image
                 src={getImage('newlogo')}
