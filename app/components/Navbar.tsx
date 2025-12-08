@@ -1,8 +1,6 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
-import { getImage } from '../utils/turbophotos'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -32,7 +30,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between h-20 py-2">
+        <div className="flex items-center justify-end h-20 py-2">
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
