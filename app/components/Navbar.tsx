@@ -37,12 +37,13 @@ export default function Navbar() {
           <div className="flex-shrink-0 overflow-visible">
             <a href="/" className="flex items-center">
               <Image
-                src={getImage('newlogo')}
+                src={`/turbophotos/${encodeURIComponent('newlogo (1).png')}`}
                 alt="TurboTech Cleaners Logo"
                 width={300}
                 height={203}
                 className="object-contain"
                 priority
+                unoptimized
               />
             </a>
           </div>
