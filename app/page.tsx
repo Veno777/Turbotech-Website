@@ -1,15 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
-import { getImage, getVideo } from './utils/turbophotos'
+import { getImage } from './utils/turbophotos'
 
 export default function Home() {
-  const mobileVideoRef = useRef<HTMLVideoElement>(null)
-  const desktopVideoRef = useRef<HTMLVideoElement>(null)
-  const [useImageFallback, setUseImageFallback] = useState(false)
-  const [videoReady, setVideoReady] = useState(false)
   const [currentCarouselImage, setCurrentCarouselImage] = useState(0)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
 
@@ -30,92 +26,6 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [carouselImages.length])
 
-  useEffect(() => {
-    const setupVideo = (video: HTMLVideoElement | null, isMobile: boolean) => {
-      if (!video) return
-
-      const handleCanPlay = () => {
-        console.log(`${isMobile ? 'Mobile' : 'Desktop'} video can play`)
-        setVideoReady(true)
-      }
-
-      const handleError = (e: Event) => {
-        console.error(`${isMobile ? 'Mobile' : 'Desktop'} video error:`, e, 'Video src:', video.src, 'Error code:', video.error?.code)
-        // Don't immediately set fallback, let it try to load
-      }
-
-      const handleLoadedData = () => {
-        console.log(`${isMobile ? 'Mobile' : 'Desktop'} video loaded`)
-        setVideoReady(true)
-      }
-
-      const handleLoadStart = () => {
-        console.log(`${isMobile ? 'Mobile' : 'Desktop'} video load started`)
-      }
-
-      video.addEventListener('canplay', handleCanPlay)
-      video.addEventListener('loadeddata', handleLoadedData)
-      video.addEventListener('error', handleError)
-      video.addEventListener('loadstart', handleLoadStart)
-
-      // Set video properties before trying to play
-      video.muted = true
-      video.preload = 'auto'
-      video.playsInline = true
-
-      const tryPlay = async () => {
-        try {
-          await video.play()
-          console.log(`${isMobile ? 'Mobile' : 'Desktop'} video playing`)
-        } catch (e) {
-          console.error(`${isMobile ? 'Mobile' : 'Desktop'} video play error:`, e)
-        }
-      }
-      
-      // Try to play when video can start playing
-      video.addEventListener('loadedmetadata', tryPlay)
-      tryPlay()
-
-      return () => {
-        video.removeEventListener('canplay', handleCanPlay)
-        video.removeEventListener('loadeddata', handleLoadedData)
-        video.removeEventListener('error', handleError)
-        video.removeEventListener('loadstart', handleLoadStart)
-        video.removeEventListener('loadedmetadata', tryPlay)
-      }
-    }
-
-    // Use a timeout to ensure videos are mounted
-    const timer = setTimeout(() => {
-      const mobileVideo = mobileVideoRef.current
-      const desktopVideo = desktopVideoRef.current
-
-      console.log('Setting up videos - Mobile:', !!mobileVideo, 'Desktop:', !!desktopVideo)
-
-      // Set up both videos - they will be shown/hidden by CSS classes
-      if (mobileVideo) {
-        setupVideo(mobileVideo, true)
-      }
-      if (desktopVideo) {
-        setupVideo(desktopVideo, false)
-      }
-      
-      if (!mobileVideo && !desktopVideo) {
-        console.log('No videos found, using fallback')
-        setUseImageFallback(true)
-      }
-
-      // Accessibility: respect prefers-reduced-motion
-      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-      if (mediaQuery && mediaQuery.matches) {
-        if (mobileVideo) mobileVideo.pause()
-        if (desktopVideo) desktopVideo.pause()
-        setUseImageFallback(true)
-      }
-    }, 100)
-
-    return () => clearTimeout(timer)
-  }, [])
 
   return (
     <main className="bg-white text-[#0A2A43]">
@@ -125,46 +35,26 @@ export default function Home() {
       <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
         {/* Video Background - Different videos for mobile and desktop */}
         <div className="absolute inset-0 w-full h-full">
-          {!useImageFallback ? (
-            <>
-              {/* Mobile Video */}
-              <video
-                ref={mobileVideoRef}
-                className="md:hidden w-full h-full object-contain"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                style={{ display: 'block' }}
-              >
-                <source src={`/turbophotos/${encodeURIComponent('mini scrub turbo (1).mp4')}`} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              {/* Desktop Video */}
-              <video
-                ref={desktopVideoRef}
-                className="hidden md:block w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                style={{ display: 'block' }}
-              >
-                <source src={`/turbophotos/${encodeURIComponent('Turbo Spin clip.mp4')}`} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </>
-          ) : (
-            <Image
-              src={getImage('cleanliving')}
-              alt="TurboTech Cleaners"
-              fill
-              className="object-cover"
-              priority
-            />
-          )}
+          {/* Mobile Video */}
+          <video
+            className="md:hidden w-full h-full object-contain"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src="/turbophotos/mini scrub turbo (1).mp4" type="video/mp4" />
+          </video>
+          {/* Desktop Video */}
+          <video
+            className="hidden md:block w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src="/turbophotos/Turbo Spin clip.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
