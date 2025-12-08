@@ -13,7 +13,7 @@ export interface MediaFile {
 // Available images from turbophotos
 export const turbophotosImages = {
   // New logo
-  newlogo: '/turbophotos/newlogo (1).png',
+  newlogo: '/turbophotos/UsethisLOGO.png',
   logo: '/turbophotos/TurboTechLogo.png',
   logoWatermark: '/turbophotos/TurboTechLogo-removebg-preview.png',
   
