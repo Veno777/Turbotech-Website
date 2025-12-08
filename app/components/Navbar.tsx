@@ -32,7 +32,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between min-h-[110px] py-3">
+        <div className="flex items-center justify-between min-h-[99px] py-2.5">
           {/* Logo - Larger */}
           <div className="flex-shrink-0 overflow-visible">
             <a href="/" className="flex items-center">
