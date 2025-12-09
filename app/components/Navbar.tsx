@@ -64,6 +64,13 @@ export default function Navbar() {
             >
               647-784-9120
             </a>
+            {/* Email */}
+            <a
+              href="mailto:info@turbotechcleaners.com"
+              className="header-email text-black hover:text-[#09BCFF] transition-colors"
+            >
+              info@turbotechcleaners.com
+            </a>
             {/* Book Now Button */}
             <a
               target="_top"
