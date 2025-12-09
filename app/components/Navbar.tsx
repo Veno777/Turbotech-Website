@@ -38,8 +38,8 @@ export default function Navbar() {
               <Image
                 src="/turbophotos/TurboTechLogo-removebg-preview.png"
                 alt="TurboTech Cleaners Logo"
-                width={144}
-                height={144}
+                width={187}
+                height={187}
                 className="object-contain"
                 priority
               />
