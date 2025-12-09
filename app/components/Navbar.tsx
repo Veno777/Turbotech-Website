@@ -32,14 +32,14 @@ export default function Navbar() {
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20 py-2 relative">
-          {/* Logo */}
-          <div className="flex-shrink-0" style={{ marginTop: '8px' }}>
+          {/* Logo - Bleeds outside navbar */}
+          <div className="flex-shrink-0 relative z-10" style={{ marginTop: '-8px', marginBottom: '-8px' }}>
             <a href="/" className="flex items-center">
               <Image
                 src="/turbophotos/TurboTechLogo-removebg-preview.png"
                 alt="TurboTech Cleaners Logo"
-                width={80}
-                height={80}
+                width={104}
+                height={104}
                 className="object-contain"
                 priority
               />
