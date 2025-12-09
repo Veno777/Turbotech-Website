@@ -33,7 +33,7 @@ export default function Navbar() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-20 py-2 relative">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0" style={{ marginTop: '8px' }}>
             <a href="/" className="flex items-center">
               <Image
                 src="/turbophotos/TurboTechLogo-removebg-preview.png"
