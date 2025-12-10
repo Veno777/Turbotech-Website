@@ -156,21 +156,21 @@ export default function Home() {
               price: '$99',
               desc: 'Regular maintenance cleaning for your condo. Includes bathrooms, kitchen, appliances, cupboards, and common living areas. Bedrooms can be added upon request. Ideal for routine maintenance or deep cleaning.',
               image: getImage('cleanedbathroom'),
-              bookingUrl: 'https://squareup.com/book/condo-cleaning-page-link',
+              bookingUrl: 'https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start',
             },
             {
               title: 'Home Cleaning',
               price: '$149',
               desc: 'Comprehensive full-home cleaning covering kitchens, bathrooms, floors, and living spaces for a complete refresh. Ideal for regular maintenance or deep cleaning.',
               image: getImage('cleankitchen'),
-              bookingUrl: 'https://squareup.com/book/home-cleaning-page-link',
+              bookingUrl: 'https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start',
             },
             {
               title: 'Office Cleaning',
               price: '$129',
               desc: 'Professional office cleaning focused on keeping your workspace spotless, hygienic, and welcoming. Includes desks, common areas, bathrooms, kitchenettes, floors, and high-touch surfaces. Ideal for regular maintenance or deep cleaning.',
               image: getImage('teamcleaners'),
-              bookingUrl: 'https://squareup.com/book/office-cleaning-page-link',
+              bookingUrl: 'https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start',
             },
           ].map((item, i) => (
             <div
