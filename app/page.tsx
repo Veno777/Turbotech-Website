@@ -310,11 +310,57 @@ export default function Home() {
         </div>
 
         {/* CONTACT FORM */}
-        <form className="mt-14 space-y-4" action="/api/contact" method="POST">
+        <form 
+          className="mt-14 space-y-4" 
+          onSubmit={async (e) => {
+            e.preventDefault()
+            setIsSubmitting(true)
+            setSubmitStatus('idle')
+
+            try {
+              const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  name: formData.name,
+                  email: formData.email,
+                  phone: formData.phone,
+                  address: formData.address,
+                  message: formData.message,
+                }),
+              })
+
+              const data = await res.json()
+
+              if (data.success) {
+                setSubmitStatus('success')
+                setFormData({
+                  name: '',
+                  email: '',
+                  phone: '',
+                  address: '',
+                  message: '',
+                })
+                alert("Request sent! We'll contact you shortly.")
+              } else {
+                setSubmitStatus('error')
+                alert('Something went wrong. Please try again.')
+              }
+            } catch (error) {
+              console.error('Error submitting form:', error)
+              setSubmitStatus('error')
+              alert('Something went wrong. Please try again.')
+            } finally {
+              setIsSubmitting(false)
+            }
+          }}
+        >
           <input
             className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#32D296]"
             placeholder="Name"
             name="name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
           />
           <input
@@ -322,6 +368,8 @@ export default function Home() {
             placeholder="Email"
             type="email"
             name="email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
           <input
@@ -329,26 +377,39 @@ export default function Home() {
             placeholder="Phone"
             type="tel"
             name="phone"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             required
           />
           <input
             className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#32D296]"
             placeholder="Address"
             name="address"
+            value={formData.address}
+            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
           />
           <textarea
             className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#32D296]"
             rows={4}
             placeholder="Message"
             name="message"
+            value={formData.message}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             required
           />
           <button
             type="submit"
-            className="bg-[#32D296] text-white px-6 py-3 rounded-lg w-full text-lg font-semibold hover:bg-[#2bb882] transition-colors"
+            disabled={isSubmitting}
+            className="bg-[#32D296] text-white px-6 py-3 rounded-lg w-full text-lg font-semibold hover:bg-[#2bb882] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send Request
+            {isSubmitting ? 'Sending...' : 'Send Request'}
           </button>
+          {submitStatus === 'success' && (
+            <p className="text-green-600 text-center">Request sent successfully!</p>
+          )}
+          {submitStatus === 'error' && (
+            <p className="text-red-600 text-center">Error sending request. Please try again.</p>
+          )}
         </form>
       </section>
 
