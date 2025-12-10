@@ -6,6 +6,15 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { name, email, phone, address, message } = body
 
+    console.log('=== Contact Form Submission Received ===')
+    console.log('Name:', name)
+    console.log('Email:', email)
+    console.log('Phone:', phone)
+    console.log('Address:', address)
+    console.log('Message:', message)
+    console.log('ZOHO_APP_PASSWORD set:', !!process.env.ZOHO_APP_PASSWORD)
+    console.log('========================================')
+
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Missing required fields', success: false },
@@ -15,24 +24,20 @@ export async function POST(request: NextRequest) {
 
     // Check if ZOHO_APP_PASSWORD is set
     if (!process.env.ZOHO_APP_PASSWORD) {
-      console.error('ZOHO_APP_PASSWORD environment variable is not set')
-      // For development, log the submission instead of failing
-      console.log('=== Contact Form Submission (No Email Config) ===')
-      console.log('Name:', name)
-      console.log('Email:', email)
-      console.log('Phone:', phone)
-      console.log('Address:', address)
-      console.log('Message:', message)
-      console.log('================================')
+      console.error('❌ ZOHO_APP_PASSWORD environment variable is not set')
+      console.log('⚠️ Form submission logged but NOT sent via email')
+      console.log('📧 To fix: Add ZOHO_APP_PASSWORD to your environment variables')
       
       // Return success even without email for development
       return NextResponse.json({ 
         success: true,
-        message: 'Form submitted successfully (logged to console - email not configured)'
+        message: 'Form submitted successfully (logged to console - email not configured)',
+        warning: 'Email not sent - ZOHO_APP_PASSWORD not configured'
       })
     }
 
     // Zoho Mail SMTP Setup
+    console.log('🔧 Setting up Zoho SMTP connection...')
     const transporter = nodemailer.createTransport({
       host: 'smtp.zoho.com',
       port: 465,
@@ -48,12 +53,18 @@ export async function POST(request: NextRequest) {
     })
 
     // Verify connection before sending
+    console.log('🔍 Verifying SMTP connection...')
     try {
       await transporter.verify()
-      console.log('SMTP server is ready to send emails')
-    } catch (verifyError) {
-      console.error('SMTP verification failed:', verifyError)
-      throw new Error('Email server connection failed. Please check your email configuration.')
+      console.log('✅ SMTP server is ready to send emails')
+    } catch (verifyError: any) {
+      console.error('❌ SMTP verification failed:', verifyError)
+      console.error('Error details:', {
+        code: verifyError.code,
+        command: verifyError.command,
+        response: verifyError.response,
+      })
+      throw new Error(`Email server connection failed: ${verifyError.message || 'Unknown error'}`)
     }
 
     // Email content
@@ -85,22 +96,52 @@ ${message}
       `,
     }
 
+    console.log('📧 Attempting to send email...')
+    console.log('To:', mailOptions.to)
+    console.log('From:', mailOptions.from)
+    console.log('Subject:', mailOptions.subject)
+    
     const info = await transporter.sendMail(mailOptions)
-    console.log('Email sent successfully:', info.messageId)
-    console.log('Email sent to:', mailOptions.to)
-    console.log('Email sent from:', mailOptions.from)
+    
+    console.log('✅ Email sent successfully!')
+    console.log('Message ID:', info.messageId)
+    console.log('Response:', info.response)
+    console.log('Accepted recipients:', info.accepted)
+    console.log('Rejected recipients:', info.rejected)
 
     return NextResponse.json({ 
       success: true,
-      messageId: info.messageId 
+      messageId: info.messageId,
+      accepted: info.accepted,
+      rejected: info.rejected
     })
   } catch (error: any) {
-    console.error('Contact Form Error:', error)
+    console.error('❌ Contact Form Error:', error)
+    console.error('Error type:', error.constructor.name)
+    console.error('Error code:', error.code)
+    console.error('Error command:', error.command)
+    console.error('Error response:', error.response)
+    console.error('Full error:', JSON.stringify(error, null, 2))
+    
+    // More detailed error message
+    let errorMessage = 'Error processing form submission'
+    if (error.code === 'EAUTH') {
+      errorMessage = 'Email authentication failed. Please check your Zoho App Password.'
+    } else if (error.code === 'ECONNECTION') {
+      errorMessage = 'Could not connect to email server. Please check your internet connection.'
+    } else if (error.code === 'ETIMEDOUT') {
+      errorMessage = 'Email server connection timed out. Please try again later.'
+    } else if (error.message) {
+      errorMessage = error.message
+    }
+    
     return NextResponse.json(
       { 
         success: false,
-        error: error.message || 'Error processing form submission',
-        message: 'Error processing form submission'
+        error: errorMessage,
+        message: errorMessage,
+        errorCode: error.code,
+        errorDetails: process.env.NODE_ENV === 'development' ? error.message : undefined
       },
       { status: 500 }
     )
