@@ -154,20 +154,23 @@ export default function Home() {
             {
               title: 'Condo Cleaning',
               price: '$99',
-              desc: 'Regular maintenance cleaning for your condo. Includes bathrooms, kitchen, appliances, cupboards, and common living areas to keep your space spotless.',
+              desc: 'Regular maintenance cleaning for your condo. Includes bathrooms, kitchen, appliances, cupboards, and common living areas. Bedrooms can be added upon request. Ideal for routine maintenance or deep cleaning.',
               image: getImage('cleanedbathroom'),
+              bookingUrl: 'https://squareup.com/book/condo-cleaning-page-link',
             },
             {
               title: 'Home Cleaning',
               price: '$149',
-              desc: 'Comprehensive full-home cleaning. We cover kitchens, bathrooms, floors, and living spaces, giving your home a thorough refresh from top to bottom.',
+              desc: 'Comprehensive full-home cleaning covering kitchens, bathrooms, floors, and living spaces for a complete refresh. Ideal for regular maintenance or deep cleaning.',
               image: getImage('cleankitchen'),
+              bookingUrl: 'https://squareup.com/book/home-cleaning-page-link',
             },
             {
               title: 'Office Cleaning',
               price: '$129',
-              desc: 'Professional cleaning for office spaces. Includes common areas, desks, floors, and high-touch surfaces to maintain a clean and productive work environment.',
+              desc: 'Professional office cleaning focused on keeping your workspace spotless, hygienic, and welcoming. Includes desks, common areas, bathrooms, kitchenettes, floors, and high-touch surfaces. Ideal for regular maintenance or deep cleaning.',
               image: getImage('teamcleaners'),
+              bookingUrl: 'https://squareup.com/book/office-cleaning-page-link',
             },
           ].map((item, i) => (
             <div
@@ -188,8 +191,8 @@ export default function Home() {
                 <p className="text-[#32D296] text-2xl font-bold mt-2">Starting at {item.price}</p>
                 <p className="mt-3 text-sm text-gray-600">{item.desc}</p>
                 <a
-                  target="_top"
-                  href="https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start"
+                  href={item.bookingUrl}
+                  target="_blank"
                   className="mt-4 inline-block w-full text-center px-4 py-2 rounded-lg bg-[#32D296] text-white font-semibold hover:bg-[#2bb882] transition-colors"
                 >
                   Book Now
