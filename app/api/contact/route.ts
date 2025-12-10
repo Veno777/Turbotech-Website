@@ -41,12 +41,26 @@ export async function POST(request: NextRequest) {
         user: 'info@turbotechcleaners.com',
         pass: process.env.ZOHO_APP_PASSWORD,
       },
+      // Add connection timeout
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     })
+
+    // Verify connection before sending
+    try {
+      await transporter.verify()
+      console.log('SMTP server is ready to send emails')
+    } catch (verifyError) {
+      console.error('SMTP verification failed:', verifyError)
+      throw new Error('Email server connection failed. Please check your email configuration.')
+    }
 
     // Email content
     const mailOptions = {
       from: 'TurboTech Cleaners <info@turbotechcleaners.com>',
       to: 'info@turbotechcleaners.com',
+      replyTo: email, // Allow replying directly to the customer
       subject: 'New Cleaning Service Request',
       html: `
         <h2>New Cleaning Service Request</h2>
@@ -54,13 +68,32 @@ export async function POST(request: NextRequest) {
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
         <p><strong>Address:</strong> ${address || 'Not provided'}</p>
-        <p><strong>Message:</strong><br>${message}</p>
+        <p><strong>Message:</strong><br>${message.replace(/\n/g, '<br>')}</p>
+        <hr>
+        <p style="color: #666; font-size: 12px;">This email was sent from your website contact form.</p>
+      `,
+      text: `
+New Cleaning Service Request
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+Address: ${address || 'Not provided'}
+
+Message:
+${message}
       `,
     }
 
-    await transporter.sendMail(mailOptions)
+    const info = await transporter.sendMail(mailOptions)
+    console.log('Email sent successfully:', info.messageId)
+    console.log('Email sent to:', mailOptions.to)
+    console.log('Email sent from:', mailOptions.from)
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ 
+      success: true,
+      messageId: info.messageId 
+    })
   } catch (error: any) {
     console.error('Contact Form Error:', error)
     return NextResponse.json(
