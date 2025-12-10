@@ -75,6 +75,9 @@ export default function Home() {
           <p className="text-lg md:text-xl text-white mb-2 opacity-95 drop-shadow-md">
             Serving GTA condos & Airbnb hosts / Homeowners
           </p>
+          <p className="text-xl md:text-2xl text-white mb-6 font-semibold italic drop-shadow-md">
+            &quot;We don&apos;t cut corners — we clean them.&quot;
+          </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
             <a
@@ -209,6 +212,60 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* CLEANING CHECKLIST SECTION */}
+      <section className="py-16 bg-[#F2F4F7]">
+        <div className="max-w-4xl mx-auto text-center mb-12 px-6">
+          <h2 className="text-3xl font-bold text-[#1E40AF]">What&apos;s Included in Every Cleaning</h2>
+          <p className="text-gray-700 mt-2">We don&apos;t cut corners — we clean them.</p>
+        </div>
+
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+          {/* Kitchen */}
+          <div className="bg-white rounded-2xl shadow-md p-8 border border-[#D4D4D8]">
+            <h3 className="text-xl font-semibold text-[#1E40AF] mb-4">Kitchen</h3>
+            <ul className="text-gray-700 space-y-2">
+              <li>• Countertops &amp; backsplash</li>
+              <li>• Stove top &amp; appliance exteriors</li>
+              <li>• Microwave inside &amp; out</li>
+              <li>• Exterior fridge wipe-down</li>
+              <li>• Sinks &amp; chrome shining</li>
+              <li>• Cupboard exterior wipe-down</li>
+              <li>• Floors swept &amp; mopped</li>
+            </ul>
+          </div>
+
+          {/* Bathrooms */}
+          <div className="bg-white rounded-2xl shadow-md p-8 border border-[#D4D4D8]">
+            <h3 className="text-xl font-semibold text-[#1E40AF] mb-4">Bathrooms</h3>
+            <ul className="text-gray-700 space-y-2">
+              <li>• Toilets fully disinfected</li>
+              <li>• Shower &amp; tub scrubbing</li>
+              <li>• Sinks &amp; counters</li>
+              <li>• Mirrors streak-free</li>
+              <li>• Chrome polished</li>
+              <li>• Floors disinfected</li>
+            </ul>
+          </div>
+
+          {/* Living Areas */}
+          <div className="bg-white rounded-2xl shadow-md p-8 border border-[#D4D4D8]">
+            <h3 className="text-xl font-semibold text-[#1E40AF] mb-4">Bedrooms &amp; Living Areas</h3>
+            <ul className="text-gray-700 space-y-2">
+              <li>• Dusting throughout</li>
+              <li>• Baseboards cleaned</li>
+              <li>• Vacuuming</li>
+              <li>• Mopping hard floors</li>
+              <li>• General tidy &amp; reset</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="max-w-3xl mx-auto text-center mt-12 px-6">
+          <h3 className="text-xl font-semibold text-[#1E40AF]">Always Included</h3>
+          <p className="text-gray-700">All supplies • High-touch disinfection • Garbage removal • Friendly, professional cleaners</p>
         </div>
       </section>
 
