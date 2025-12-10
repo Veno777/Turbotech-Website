@@ -8,6 +8,15 @@ import { getImage } from './utils/turbophotos'
 export default function Home() {
   const [currentCarouselImage, setCurrentCarouselImage] = useState(0)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    message: '',
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   // Carousel images
   const carouselImages = [
