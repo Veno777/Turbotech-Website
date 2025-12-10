@@ -317,28 +317,30 @@ export default function Home() {
 
         <div className="max-w-4xl mx-auto mt-16 px-6">
           <div className="bg-gradient-to-r from-[#32D296]/10 to-[#09BCFF]/10 rounded-2xl p-8 border-2 border-[#32D296]/30">
-            <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-4">
               <svg className="w-8 h-8 text-[#32D296]" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <h3 className="text-2xl font-bold text-[#0A2A43]">Always Included</h3>
             </div>
-            <ul className="space-y-3 max-w-2xl mx-auto">
-              {[
-                'Power-tool detailing for tough buildup',
-                'High-pressure edge cleaning',
-                'HEPA vacuum for allergen removal',
-                'Microfiber wipe-downs for a streak-free finish',
-                'Rapid-dry floor finish',
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <svg className="w-6 h-6 text-[#32D296] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-700 text-[15px] leading-relaxed">{item}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="flex flex-wrap justify-center gap-4 text-gray-700">
+              <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#32D296]"></span>
+                Power-tool detailing for tough buildup
+              </span>
+              <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#32D296]"></span>
+                HEPA vacuum for allergen removal
+              </span>
+              <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#32D296]"></span>
+                Microfiber wipe-downs for a streak-free finish
+              </span>
+              <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#32D296]"></span>
+                Rapid-dry floor finish
+              </span>
+            </div>
           </div>
         </div>
       </section>
