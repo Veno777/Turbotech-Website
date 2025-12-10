@@ -213,56 +213,128 @@ export default function Home() {
       </section>
 
       {/* CLEANING CHECKLIST SECTION */}
-      <section className="py-16 bg-[#F2F4F7]">
-        <div className="max-w-4xl mx-auto text-center mb-12 px-6">
-          <h2 className="text-3xl font-bold text-[#1E40AF]">What&apos;s Included in Every Cleaning</h2>
-          <p className="text-gray-700 mt-2">We don&apos;t cut corners — we clean them.</p>
+      <section className="py-20 bg-gradient-to-b from-[#F0FAFF] to-white">
+        <div className="max-w-5xl mx-auto text-center mb-16 px-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0A2A43] mb-4">What&apos;s Included in Every Cleaning</h2>
+          <p className="text-xl text-[#32D296] font-semibold italic mt-3">We don&apos;t cut corners — we clean them.</p>
         </div>
 
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 px-6">
           {/* Kitchen */}
-          <div className="bg-white rounded-2xl shadow-md p-8 border border-[#D4D4D8]">
-            <h3 className="text-xl font-semibold text-[#1E40AF] mb-4">Kitchen</h3>
-            <ul className="text-gray-700 space-y-2">
-              <li>• Countertops &amp; backsplash</li>
-              <li>• Stove top &amp; appliance exteriors</li>
-              <li>• Microwave inside &amp; out</li>
-              <li>• Exterior fridge wipe-down</li>
-              <li>• Sinks &amp; chrome shining</li>
-              <li>• Cupboard exterior wipe-down</li>
-              <li>• Floors swept &amp; mopped</li>
+          <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/20 hover:border-[#32D296]/40 transition-all hover:shadow-xl">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-[#32D296]/10 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[#32D296]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-[#0A2A43]">Kitchen</h3>
+            </div>
+            <ul className="space-y-3">
+              {[
+                'Countertops & backsplash',
+                'Stove top & appliance exteriors',
+                'Microwave inside & out',
+                'Exterior fridge wipe-down',
+                'Sinks & chrome shining',
+                'Cupboard exterior wipe-down',
+                'Floors swept & mopped',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#32D296] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-gray-700 text-[15px] leading-relaxed">{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Bathrooms */}
-          <div className="bg-white rounded-2xl shadow-md p-8 border border-[#D4D4D8]">
-            <h3 className="text-xl font-semibold text-[#1E40AF] mb-4">Bathrooms</h3>
-            <ul className="text-gray-700 space-y-2">
-              <li>• Toilets fully disinfected</li>
-              <li>• Shower &amp; tub scrubbing</li>
-              <li>• Sinks &amp; counters</li>
-              <li>• Mirrors streak-free</li>
-              <li>• Chrome polished</li>
-              <li>• Floors disinfected</li>
+          <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/20 hover:border-[#32D296]/40 transition-all hover:shadow-xl">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-[#09BCFF]/10 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[#09BCFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-[#0A2A43]">Bathrooms</h3>
+            </div>
+            <ul className="space-y-3">
+              {[
+                'Toilets fully disinfected',
+                'Shower & tub scrubbing',
+                'Sinks & counters',
+                'Mirrors streak-free',
+                'Chrome polished',
+                'Floors disinfected',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#32D296] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-gray-700 text-[15px] leading-relaxed">{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Living Areas */}
-          <div className="bg-white rounded-2xl shadow-md p-8 border border-[#D4D4D8]">
-            <h3 className="text-xl font-semibold text-[#1E40AF] mb-4">Bedrooms &amp; Living Areas</h3>
-            <ul className="text-gray-700 space-y-2">
-              <li>• Dusting throughout</li>
-              <li>• Baseboards cleaned</li>
-              <li>• Vacuuming</li>
-              <li>• Mopping hard floors</li>
-              <li>• General tidy &amp; reset</li>
+          <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/20 hover:border-[#32D296]/40 transition-all hover:shadow-xl">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-[#32D296]/10 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[#32D296]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-[#0A2A43]">Bedrooms &amp; Living Areas</h3>
+            </div>
+            <ul className="space-y-3">
+              {[
+                'Dusting throughout',
+                'Baseboards cleaned',
+                'Vacuuming',
+                'Mopping hard floors',
+                'General tidy & reset',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-[#32D296] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-gray-700 text-[15px] leading-relaxed">{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        <div className="max-w-3xl mx-auto text-center mt-12 px-6">
-          <h3 className="text-xl font-semibold text-[#1E40AF]">Always Included</h3>
-          <p className="text-gray-700">All supplies • High-touch disinfection • Garbage removal • Friendly, professional cleaners</p>
+        <div className="max-w-4xl mx-auto mt-16 px-6">
+          <div className="bg-gradient-to-r from-[#32D296]/10 to-[#09BCFF]/10 rounded-2xl p-8 border-2 border-[#32D296]/30">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <svg className="w-8 h-8 text-[#32D296]" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              <h3 className="text-2xl font-bold text-[#0A2A43]">Always Included</h3>
+            </div>
+            <div className="flex flex-wrap justify-center gap-4 text-gray-700">
+              <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#32D296]"></span>
+                All supplies
+              </span>
+              <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#32D296]"></span>
+                High-touch disinfection
+              </span>
+              <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#32D296]"></span>
+                Garbage removal
+              </span>
+              <span className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#32D296]"></span>
+                Friendly, professional cleaners
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
