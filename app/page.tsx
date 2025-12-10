@@ -442,9 +442,17 @@ export default function Home() {
           ))}
         </div>
 
-        {/* CONTACT FORM */}
-        <form 
-          className="mt-14 space-y-4" 
+        {/* CONTACT FORM SECTION */}
+        <div className="mt-20 pt-16 pb-8 px-6 bg-gradient-to-b from-[#32D296]/5 to-transparent rounded-2xl border-t-2 border-[#32D296]/20">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#0A2A43] mb-3">Request a Cleaning</h2>
+              <p className="text-gray-700 text-lg">Submit your details and we&apos;ll get back to you with a quote and booking info.</p>
+            </div>
+
+            {/* CONTACT FORM */}
+            <form 
+              className="space-y-4" 
           onSubmit={async (e) => {
             e.preventDefault()
             setIsSubmitting(true)
@@ -545,10 +553,12 @@ export default function Home() {
           {submitStatus === 'success' && (
             <p className="text-green-600 text-center">Request sent successfully!</p>
           )}
-          {submitStatus === 'error' && (
-            <p className="text-red-600 text-center">Error sending request. Please try again.</p>
-          )}
-        </form>
+              {submitStatus === 'error' && (
+                <p className="text-red-600 text-center">Error sending request. Please try again.</p>
+              )}
+            </form>
+          </div>
+        </div>
       </section>
 
       {/* FOOTER */}
