@@ -105,7 +105,7 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
             Why Choose TurboTech Cleaning?
           </h2>
-          
+
           {/* Carousel */}
           <div className="relative h-64 md:h-96 mb-16 rounded-xl overflow-hidden shadow-lg">
             {carouselImages.map((img, i) => (
@@ -221,9 +221,9 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 px-6">
           {/* Kitchen */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/20 hover:border-[#32D296]/40 transition-all hover:shadow-xl">
+          <div className="bg-gradient-to-r from-[#32D296]/10 to-[#09BCFF]/10 rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/30 hover:border-[#32D296]/50 transition-all hover:shadow-xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-[#32D296]/10 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-[#32D296]/20 flex items-center justify-center">
                 <svg className="w-6 h-6 text-[#32D296]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
@@ -251,9 +251,9 @@ export default function Home() {
           </div>
 
           {/* Bathrooms */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/20 hover:border-[#32D296]/40 transition-all hover:shadow-xl">
+          <div className="bg-gradient-to-r from-[#32D296]/10 to-[#09BCFF]/10 rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/30 hover:border-[#32D296]/50 transition-all hover:shadow-xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-[#09BCFF]/10 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-[#09BCFF]/20 flex items-center justify-center">
                 <svg className="w-6 h-6 text-[#09BCFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -280,9 +280,9 @@ export default function Home() {
           </div>
 
           {/* Living Areas */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/20 hover:border-[#32D296]/40 transition-all hover:shadow-xl">
+          <div className="bg-gradient-to-r from-[#32D296]/10 to-[#09BCFF]/10 rounded-2xl shadow-lg p-8 border-2 border-[#32D296]/30 hover:border-[#32D296]/50 transition-all hover:shadow-xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-[#32D296]/10 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-[#32D296]/20 flex items-center justify-center">
                 <svg className="w-6 h-6 text-[#32D296]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
