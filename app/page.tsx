@@ -465,6 +465,10 @@ export default function Home() {
 
               const data = await res.json()
 
+              if (!res.ok) {
+                throw new Error(data.error || data.message || 'Server error')
+              }
+
               if (data.success) {
                 setSubmitStatus('success')
                 setFormData({
@@ -477,12 +481,13 @@ export default function Home() {
                 alert("Request sent! We'll contact you shortly.")
               } else {
                 setSubmitStatus('error')
-                alert('Something went wrong. Please try again.')
+                alert(data.error || data.message || 'Something went wrong. Please try again.')
               }
-            } catch (error) {
+            } catch (error: any) {
               console.error('Error submitting form:', error)
               setSubmitStatus('error')
-              alert('Something went wrong. Please try again.')
+              const errorMessage = error.message || 'Something went wrong. Please try again.'
+              alert(errorMessage)
             } finally {
               setIsSubmitting(false)
             }
