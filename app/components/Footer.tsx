@@ -34,10 +34,10 @@ export default function Footer() {
               </li>
               <li>
                 <a 
-                  href="mailto:hello@turbotechcleaners.com" 
+                  href="mailto:info@turbotechcleaners.com" 
                   className="hover:text-white transition-colors"
                 >
-                  Email: hello@turbotechcleaners.com
+                  Email: info@turbotechcleaners.com
                 </a>
               </li>
             </ul>

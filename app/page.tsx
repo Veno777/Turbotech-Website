@@ -355,8 +355,8 @@ export default function Home() {
           </a>
         </p>
         <p className="mt-1">
-          <a href="mailto:hello@turbotechcleaners.com" className="hover:text-[#0A2A43] transition-colors font-semibold">
-            Email: hello@turbotechcleaners.com
+          <a href="mailto:info@turbotechcleaners.com" className="hover:text-[#0A2A43] transition-colors font-semibold">
+            Email: info@turbotechcleaners.com
           </a>
         </p>
 
