@@ -161,7 +161,7 @@ export default function Home() {
             {
               title: 'Home Cleaning',
               price: '$149',
-              desc: 'Full-home cleaning including bathrooms, kitchen, appliances, floors, baseboards, bedrooms, and living spaces. Ideal for regular maintenance or deep cleaning.',
+              desc: 'Full-home cleaning including bathrooms, kitchen, appliances, floors, baseboards, bedrooms, and living spaces. Ideal for regular maintenance or detailed deep cleaning.',
               image: getImage('cleankitchen'),
               bookingUrl: 'https://app.squareup.com/appointments/book/yf9w9iexbe2vql/L1V07E9ZSCW9A/start',
             },
