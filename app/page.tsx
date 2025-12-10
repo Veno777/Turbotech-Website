@@ -72,9 +72,6 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
             Premium Condo & Home Cleaning in the GTA
           </h1>
-          <p className="text-lg md:text-xl text-white mb-2 opacity-95 drop-shadow-md">
-            Serving GTA condos & Airbnb hosts / Homeowners
-          </p>
           <p className="text-xl md:text-2xl text-white mb-6 font-semibold italic drop-shadow-md">
             &quot;We don&apos;t cut corners — we clean them.&quot;
           </p>
