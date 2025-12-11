@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     console.log('Phone:', phone)
     console.log('Address:', address)
     console.log('Message:', message)
-    console.log('ZOHO_APP_PASSWORD set:', !!process.env.ZOHO_APP_PASSWORD)
+    console.log('ZOHO_APP_PASSWORD_TEST set:', !!process.env.ZOHO_APP_PASSWORD_TEST)
     console.log('========================================')
 
     if (!name || !email || !message) {
@@ -22,29 +22,30 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check if ZOHO_APP_PASSWORD is set
-    if (!process.env.ZOHO_APP_PASSWORD) {
-      console.error('❌ ZOHO_APP_PASSWORD environment variable is not set')
+    // Check if ZOHO_APP_PASSWORD_TEST is set
+    if (!process.env.ZOHO_APP_PASSWORD_TEST) {
+      console.error('❌ ZOHO_APP_PASSWORD_TEST environment variable is not set')
       console.log('⚠️ Form submission logged but NOT sent via email')
-      console.log('📧 To fix: Add ZOHO_APP_PASSWORD to your environment variables')
+      console.log('📧 To fix: Add ZOHO_APP_PASSWORD_TEST to your environment variables')
       
       // Return success even without email for development
       return NextResponse.json({ 
         success: true,
         message: 'Form submitted successfully (logged to console - email not configured)',
-        warning: 'Email not sent - ZOHO_APP_PASSWORD not configured'
+        warning: 'Email not sent - ZOHO_APP_PASSWORD_TEST not configured'
       })
     }
 
     // Zoho Mail SMTP Setup (Zoho Canada)
+    // Reads your Vercel environment variable 'ZOHO_APP_PASSWORD_TEST'
     console.log('🔧 Setting up Zoho SMTP connection...')
     const transporter = nodemailer.createTransport({
-      host: 'smtp.zohocloud.ca',
-      port: 465,
-      secure: true, // SSL
+      host: 'smtp.zohocloud.ca', // Zoho Canada server
+      port: 465,                  // SSL port
+      secure: true,               // Use SSL
       auth: {
         user: 'info@turbotechcleaners.com',
-        pass: process.env.ZOHO_APP_PASSWORD,
+        pass: process.env.ZOHO_APP_PASSWORD_TEST, // <-- exact key from Vercel
       },
       // Add connection timeout
       connectionTimeout: 10000,
