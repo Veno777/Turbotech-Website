@@ -36,12 +36,12 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Zoho Mail SMTP Setup
+    // Zoho Mail SMTP Setup (Zoho Canada)
     console.log('🔧 Setting up Zoho SMTP connection...')
     const transporter = nodemailer.createTransport({
-      host: 'smtp.zoho.com',
+      host: 'smtp.zohocloud.ca',
       port: 465,
-      secure: true,
+      secure: true, // SSL
       auth: {
         user: 'info@turbotechcleaners.com',
         pass: process.env.ZOHO_APP_PASSWORD,
